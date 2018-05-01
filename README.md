@@ -39,6 +39,20 @@ you can install it using [Composer](http://getcomposer.org).
 composer require lcobucci/chimera-mapping
 ```
 
+### PHP Configuration
+
+In order to make sure that we're dealing with the correct data, we're using `assert()`,
+which is a very interesting feature in PHP but not often used. The nice thing
+about `assert()` is that we can (and should) disable it in production mode so
+that we don't have useless statements.
+
+So, for production mode, we recommend you to set `zend.assertions` to `-1` in your `php.ini`.
+For development you should leave `zend.assertions` as `1` and set `assert.exception` to `1`, which
+will make PHP throw an [`AssertionError`](https://secure.php.net/manual/en/class.assertionerror.php)
+when things go wrong.
+
+Check the documentation for more information: https://secure.php.net/manual/en/function.assert.php
+
 ## Usage
 
 These are the annotations related to how services should be mapped to the
