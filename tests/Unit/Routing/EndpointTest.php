@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Unit\Routing;
+namespace Chimera\Mapping\Tests\Unit\Routing;
 
+use Chimera\Mapping\Routing\Endpoint;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Routing\Endpoint;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Lcobucci\Chimera\Mapping\Routing\Endpoint
+ * @coversDefaultClass \Chimera\Mapping\Routing\Endpoint
  */
 final class EndpointTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class EndpointTest extends TestCase
      *
      * @covers ::__construct()
      * @covers ::validate()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Validator
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
@@ -39,7 +39,7 @@ final class EndpointTest extends TestCase
      *
      * @covers ::__construct()
      * @covers ::validate()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Validator
      *
      * @param mixed[] $values
      */

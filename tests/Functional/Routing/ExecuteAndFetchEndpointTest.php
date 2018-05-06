@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Functional\Routing;
+namespace Chimera\Mapping\Tests\Functional\Routing;
 
+use Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
+use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
-use Lcobucci\Chimera\Mapping\Tests\Functional\TestCase;
 use function assert;
 
 final class ExecuteAndFetchEndpointTest extends TestCase
@@ -13,9 +13,9 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
@@ -34,9 +34,9 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function propertiesShouldBeConfiguredProperly(): void
     {
@@ -55,9 +55,9 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {

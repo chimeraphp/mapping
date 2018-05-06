@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Functional\Routing;
+namespace Chimera\Mapping\Tests\Functional\Routing;
 
+use Chimera\Mapping\Routing\CreateEndpoint;
+use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Routing\CreateEndpoint;
-use Lcobucci\Chimera\Mapping\Tests\Functional\TestCase;
 use function assert;
 
 final class CreateEndpointTest extends TestCase
@@ -13,9 +13,9 @@ final class CreateEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\CreateEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
@@ -35,9 +35,9 @@ final class CreateEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\CreateEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function propertiesShouldBeConfiguredProperly(): void
     {
@@ -57,9 +57,9 @@ final class CreateEndpointTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
-     * @covers \Lcobucci\Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Routing\CreateEndpoint
+     * @covers \Chimera\Mapping\Reader
      */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {

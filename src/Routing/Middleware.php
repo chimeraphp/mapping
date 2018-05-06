@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Routing;
+namespace Chimera\Mapping\Routing;
 
+use Chimera\Mapping\Annotation as AnnotationInterface;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Annotation as AnnotationInterface;
-use Lcobucci\Chimera\Mapping\Validator;
 
 /**
  * @Annotation

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Routing;
+namespace Chimera\Mapping\Routing;
 
-use Lcobucci\Chimera\Mapping\Validator;
+use Chimera\Mapping\Validator;
 
 /**
  * @Annotation

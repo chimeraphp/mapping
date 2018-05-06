@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Functional;
+namespace Chimera\Mapping\Tests\Functional;
 
+use Chimera\Mapping\Annotation;
+use Chimera\Mapping\Reader;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Lcobucci\Chimera\Mapping\Annotation;
-use Lcobucci\Chimera\Mapping\Reader;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;

@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Lcobucci\\Chimera\\Mapping\\": "src"
+            "Chimera\\Mapping\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Lcobucci\\Chimera\\Mapping\\Tests\\": "tests"
+            "Chimera\\Mapping\\Tests\\": "tests"
         }
     },
     "extra": {

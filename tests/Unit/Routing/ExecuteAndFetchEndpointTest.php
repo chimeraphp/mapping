@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Unit\Routing;
+namespace Chimera\Mapping\Tests\Unit\Routing;
 
+use Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Lcobucci\Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
+ * @coversDefaultClass \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
  */
 final class ExecuteAndFetchEndpointTest extends TestCase
 {
@@ -20,8 +20,8 @@ final class ExecuteAndFetchEndpointTest extends TestCase
      * @covers ::__construct()
      * @covers ::validateAdditionalData()
      * @covers ::defaultMethods()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
@@ -40,8 +40,8 @@ final class ExecuteAndFetchEndpointTest extends TestCase
      * @covers ::__construct()
      * @covers ::validateAdditionalData()
      * @covers ::defaultMethods()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
      *
      * @param mixed[] $values
      */

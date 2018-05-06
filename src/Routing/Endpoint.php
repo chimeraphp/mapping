@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Routing;
+namespace Chimera\Mapping\Routing;
 
+use Chimera\Mapping\Annotation;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Annotation;
-use Lcobucci\Chimera\Mapping\Validator;
 use function get_class;
 
 abstract class Endpoint implements Annotation

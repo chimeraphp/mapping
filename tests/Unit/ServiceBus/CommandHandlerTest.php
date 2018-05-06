@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Unit\ServiceBus;
+namespace Chimera\Mapping\Tests\Unit\ServiceBus;
 
+use Chimera\Mapping\ServiceBus\CommandHandler;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\ServiceBus\CommandHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Lcobucci\Chimera\Mapping\ServiceBus\CommandHandler
+ * @coversDefaultClass \Chimera\Mapping\ServiceBus\CommandHandler
  */
 final class CommandHandlerTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class CommandHandlerTest extends TestCase
      *
      * @covers ::__construct()
      * @covers ::validate()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Validator
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
@@ -33,7 +33,7 @@ final class CommandHandlerTest extends TestCase
      *
      * @covers ::__construct()
      * @covers ::validate()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Validator
      *
      * @param mixed[] $values
      */

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Functional\ServiceBus;
+namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
+use Chimera\Mapping\ServiceBus\QueryHandler;
+use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\ServiceBus\QueryHandler;
-use Lcobucci\Chimera\Mapping\Tests\Functional\TestCase;
 use function assert;
 
 final class QueryHandlerTest extends TestCase
@@ -13,8 +13,8 @@ final class QueryHandlerTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
+     * @covers \Chimera\Mapping\Reader
      */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
@@ -28,8 +28,8 @@ final class QueryHandlerTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
+     * @covers \Chimera\Mapping\Reader
      */
     public function propertiesShouldBeConfiguredProperly(): void
     {
@@ -43,8 +43,8 @@ final class QueryHandlerTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
+     * @covers \Chimera\Mapping\Reader
      */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Unit\Routing;
+namespace Chimera\Mapping\Tests\Unit\Routing;
 
+use Chimera\Mapping\Routing\FetchEndpoint;
 use Doctrine\Common\Annotations\AnnotationException;
-use Lcobucci\Chimera\Mapping\Routing\FetchEndpoint;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Lcobucci\Chimera\Mapping\Routing\FetchEndpoint
+ * @coversDefaultClass \Chimera\Mapping\Routing\FetchEndpoint
  */
 final class FetchEndpointTest extends TestCase
 {
@@ -20,8 +20,8 @@ final class FetchEndpointTest extends TestCase
      * @covers ::__construct()
      * @covers ::validateAdditionalData()
      * @covers ::defaultMethods()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
@@ -39,8 +39,8 @@ final class FetchEndpointTest extends TestCase
      * @covers ::__construct()
      * @covers ::validateAdditionalData()
      * @covers ::defaultMethods()
-     * @covers \Lcobucci\Chimera\Mapping\Validator
-     * @covers \Lcobucci\Chimera\Mapping\Routing\Endpoint
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
      *
      * @param mixed[] $values
      */

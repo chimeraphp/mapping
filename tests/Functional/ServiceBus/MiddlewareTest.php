@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\Chimera\Mapping\Tests\Functional\ServiceBus;
+namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
-use Lcobucci\Chimera\Mapping\ServiceBus\Middleware;
-use Lcobucci\Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\ServiceBus\Middleware;
+use Chimera\Mapping\Tests\Functional\TestCase;
 use function assert;
 
 final class MiddlewareTest extends TestCase
@@ -12,8 +12,8 @@ final class MiddlewareTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\Middleware
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\Middleware
+     * @covers \Chimera\Mapping\Reader
      */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
@@ -28,8 +28,8 @@ final class MiddlewareTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\Middleware
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\Middleware
+     * @covers \Chimera\Mapping\Reader
      */
     public function propertiesShouldBeConfiguredProperly(): void
     {
@@ -44,8 +44,8 @@ final class MiddlewareTest extends TestCase
     /**
      * @test
      *
-     * @covers \Lcobucci\Chimera\Mapping\ServiceBus\Middleware
-     * @covers \Lcobucci\Chimera\Mapping\Reader
+     * @covers \Chimera\Mapping\ServiceBus\Middleware
+     * @covers \Chimera\Mapping\Reader
      */
     public function everythingShouldBeFineIfNoValueWasProvided(): void
     {
