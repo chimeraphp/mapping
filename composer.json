@@ -1,5 +1,5 @@
 {
-    "name": "lcobucci/chimera-mapping",
+    "name": "chimera/mapping",
     "description": "Useful annotations to configure the application layer of your software",
     "type": "library",
     "license": "MIT",
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "0.1.x-dev"
         }
     }
 }
