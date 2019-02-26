@@ -39,9 +39,7 @@ final class ReaderTest extends TestCase
      */
     public function fromDefaultShouldReturnAReaderDecoratingABasicAnnotationReader(): void
     {
-        $reader = Reader::fromDefault();
-
-        self::assertAttributeInstanceOf(AnnotationReader::class, 'decorated', $reader);
+        self::assertEquals(new Reader(new AnnotationReader()), Reader::fromDefault());
     }
 
     /**
