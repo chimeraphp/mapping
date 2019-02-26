@@ -6,7 +6,6 @@ namespace Chimera\Mapping\Routing;
 use Chimera\Mapping\Annotation;
 use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
-use function get_class;
 
 abstract class Endpoint implements Annotation
 {
@@ -48,7 +47,7 @@ abstract class Endpoint implements Annotation
      */
     public function validate(string $context): void
     {
-        $validator = new Validator(get_class($this), $context);
+        $validator = new Validator(static::class, $context);
         $validator->requiredScalar('path', 'string', $this->path);
         $validator->requiredScalar('name', 'string', $this->name);
         $validator->nonRequiredScalar('app', 'string', $this->app);

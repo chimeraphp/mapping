@@ -15,7 +15,6 @@ final class QueryHandler implements AnnotationInterface
 {
     /**
      * @Required
-     *
      * @var string
      */
     public $handles;
@@ -33,7 +32,7 @@ final class QueryHandler implements AnnotationInterface
      */
     public function validate(string $context): void
     {
-        $validator = new Validator(__CLASS__, $context);
+        $validator = new Validator(self::class, $context);
         $validator->requiredScalar('handles', 'string', $this->handles);
     }
 }

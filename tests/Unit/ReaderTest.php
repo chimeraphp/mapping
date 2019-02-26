@@ -39,9 +39,7 @@ final class ReaderTest extends TestCase
      */
     public function fromDefaultShouldReturnAReaderDecoratingABasicAnnotationReader(): void
     {
-        $reader = Reader::fromDefault();
-
-        self::assertAttributeInstanceOf(AnnotationReader::class, 'decorated', $reader);
+        self::assertEquals(new Reader(new AnnotationReader()), Reader::fromDefault());
     }
 
     /**
@@ -54,11 +52,11 @@ final class ReaderTest extends TestCase
     public function getClassAnnotationsShouldReturnOnlyValidAndRelevantAnnotations(): void
     {
         $annotation = $this->createMock(Annotation::class);
-        $class      = new ReflectionClass(__CLASS__);
+        $class      = new ReflectionClass(self::class);
 
         $annotation->expects(self::exactly(2))
                    ->method('validate')
-                   ->with('class ' . __CLASS__);
+                   ->with('class ' . self::class);
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotations')
@@ -81,11 +79,11 @@ final class ReaderTest extends TestCase
     {
         $annotation = $this->createMock(Annotation::class);
         $exception  = new AnnotationException();
-        $class      = new ReflectionClass(__CLASS__);
+        $class      = new ReflectionClass(self::class);
 
         $annotation->expects(self::once())
                    ->method('validate')
-                   ->with('class ' . __CLASS__)
+                   ->with('class ' . self::class)
                    ->willThrowException($exception);
 
         $this->decorated->expects(self::once())
@@ -108,7 +106,7 @@ final class ReaderTest extends TestCase
      */
     public function getClassAnnotationShouldReturnNullWhenAnnotationWasNotFound(): void
     {
-        $class = new ReflectionClass(__CLASS__);
+        $class = new ReflectionClass(self::class);
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotation')
@@ -131,11 +129,11 @@ final class ReaderTest extends TestCase
     {
         $annotation = $this->createMock(Annotation::class);
         $exception  = new AnnotationException();
-        $class      = new ReflectionClass(__CLASS__);
+        $class      = new ReflectionClass(self::class);
 
         $annotation->expects(self::once())
                    ->method('validate')
-                   ->with('class ' . __CLASS__)
+                   ->with('class ' . self::class)
                    ->willThrowException($exception);
 
         $this->decorated->expects(self::once())
@@ -159,11 +157,11 @@ final class ReaderTest extends TestCase
     public function getClassAnnotationShouldReturnMatchedAnnotation(): void
     {
         $annotation = $this->createMock(Annotation::class);
-        $class      = new ReflectionClass(__CLASS__);
+        $class      = new ReflectionClass(self::class);
 
         $annotation->expects(self::exactly(1))
                    ->method('validate')
-                   ->with('class ' . __CLASS__);
+                   ->with('class ' . self::class);
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotation')
