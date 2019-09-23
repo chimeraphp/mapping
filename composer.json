@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "^7.3 || ^8.0",
-        "doctrine/annotations": "^1.6"
+        "doctrine/annotations": "^1.7"
     },
     "require-dev": {
         "infection/infection": "^0.13 || ^0.14",
