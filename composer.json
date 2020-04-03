@@ -18,7 +18,7 @@
         "doctrine/annotations": "^1.10"
     },
     "require-dev": {
-        "infection/infection": "^0.15.3",
+        "infection/infection": "^0.16.1",
         "lcobucci/coding-standard": "^3.1",
         "phpstan/phpstan": "^0.11",
         "phpstan/phpstan-deprecation-rules": "^0.11",
