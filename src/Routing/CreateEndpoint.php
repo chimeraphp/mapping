@@ -11,20 +11,9 @@ use Chimera\Mapping\Validator;
  */
 final class CreateEndpoint extends Endpoint
 {
-    /**
-     * @var string
-     */
-    public $command;
-
-    /**
-     * @var string
-     */
-    public $redirectTo;
-
-    /**
-     * @var bool
-     */
-    public $async;
+    public ?string $command;
+    public ?string $redirectTo;
+    public bool $async;
 
     /**
      * @param mixed[] $values
@@ -38,9 +27,6 @@ final class CreateEndpoint extends Endpoint
         $this->async      = $values['async'] ?? false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function validateAdditionalData(Validator $validator): void
     {
         $validator->requiredScalar('command', 'string', $this->command);

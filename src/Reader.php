@@ -11,10 +11,7 @@ use function assert;
 
 final class Reader
 {
-    /**
-     * @var ReaderInterface
-     */
-    private $decorated;
+    private ReaderInterface $decorated;
 
     public function __construct(ReaderInterface $reader)
     {

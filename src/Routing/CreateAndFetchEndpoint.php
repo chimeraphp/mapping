@@ -11,20 +11,9 @@ use Chimera\Mapping\Validator;
  */
 final class CreateAndFetchEndpoint extends Endpoint
 {
-    /**
-     * @var string
-     */
-    public $command;
-
-    /**
-     * @var string
-     */
-    public $query;
-
-    /**
-     * @var string
-     */
-    public $redirectTo;
+    public ?string $command;
+    public ?string $query;
+    public ?string $redirectTo;
 
     /**
      * @param mixed[] $values
@@ -38,9 +27,6 @@ final class CreateAndFetchEndpoint extends Endpoint
         $this->redirectTo = $values['redirectTo'] ?? null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function validateAdditionalData(Validator $validator): void
     {
         $validator->requiredScalar('command', 'string', $this->command);

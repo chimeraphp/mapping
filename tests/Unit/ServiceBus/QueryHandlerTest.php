@@ -51,9 +51,7 @@ final class QueryHandlerTest extends TestCase
     public function invalidScenarios(): array
     {
         return [
-            'empty handles'      => [[]],
-            'non-string handles' => [['handles' => false]],
-            'non-string value'   => [['value' => false]],
+            'empty handles' => [[]],
         ];
     }
 }

@@ -64,11 +64,8 @@ final class CreateAndFetchEndpointTest extends TestCase
     {
         return [
             'empty command'      => [['query' => 'test', 'redirectTo' => 'test3']],
-            'non-string command' => [['command' => false, 'query' => 'test', 'redirectTo' => 'test3']],
             'empty query'        => [['command' => 'test', 'redirectTo' => 'test3']],
-            'non-string query'   => [['query' => false, 'command' => 'test', 'redirectTo' => 'test3']],
             'empty redirectTo'      => [['command' => 'test', 'query' => 'test']],
-            'non-string redirectTo' => [['command' => 'test', 'query' => 'test', 'redirectTo' => false]],
         ];
     }
 }

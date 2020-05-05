@@ -59,7 +59,6 @@ final class FetchEndpointTest extends TestCase
     {
         return [
             'empty query'      => [[]],
-            'non-string query' => [['query' => false]],
         ];
     }
 }

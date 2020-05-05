@@ -13,20 +13,9 @@ use Doctrine\Common\Annotations\AnnotationException;
  */
 final class Middleware implements AnnotationInterface
 {
-    /**
-     * @var string
-     */
-    public $path;
-
-    /**
-     * @var int
-     */
-    public $priority;
-
-    /**
-     * @var string|null
-     */
-    public $app;
+    public string $path;
+    public int $priority;
+    public ?string $app;
 
     /**
      * @param mixed[] $values

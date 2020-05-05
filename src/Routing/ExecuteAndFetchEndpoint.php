@@ -11,15 +11,8 @@ use Chimera\Mapping\Validator;
  */
 final class ExecuteAndFetchEndpoint extends Endpoint
 {
-    /**
-     * @var string
-     */
-    public $command;
-
-    /**
-     * @var string
-     */
-    public $query;
+    public ?string $command;
+    public ?string $query;
 
     /**
      * @param mixed[] $values
@@ -32,9 +25,6 @@ final class ExecuteAndFetchEndpoint extends Endpoint
         $this->query   = $values['query'] ?? null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function validateAdditionalData(Validator $validator): void
     {
         $validator->requiredScalar('command', 'string', $this->command);

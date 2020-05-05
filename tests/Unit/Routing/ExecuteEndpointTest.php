@@ -59,7 +59,6 @@ final class ExecuteEndpointTest extends TestCase
     {
         return [
             'empty command'      => [[]],
-            'non-string command' => [['command' => false]],
         ];
     }
 }

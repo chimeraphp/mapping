@@ -12,10 +12,7 @@ use ReflectionException;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * @var Reader
-     */
-    private $reader;
+    private Reader $reader;
 
     /**
      * @before

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\Middleware;
-use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,32 +30,18 @@ final class MiddlewareTest extends TestCase
 
     /**
      * @test
-     * @dataProvider invalidScenarios
      *
      * @covers ::__construct()
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
-     *
-     * @param mixed[] $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldNotRaiseExceptionsWhenNothingIsProvided(): void
     {
-        $annotation = new Middleware($values);
-
-        $this->expectException(AnnotationException::class);
+        $annotation = new Middleware([]);
         $annotation->validate('class A');
-    }
 
-    /**
-     * @return mixed[][]
-     */
-    public function invalidScenarios(): array
-    {
-        return [
-            'non-string path'  => [['path' => false]],
-            'non-string value' => [['path' => false]],
-            'non-string app'   => [['app' => false]],
-            'non-int priority' => [['priority' => false]],
-        ];
+        self::assertSame('/', $annotation->path);
+        self::assertNull($annotation->app);
+        self::assertSame(0, $annotation->priority);
     }
 }

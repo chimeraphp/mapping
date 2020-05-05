@@ -13,15 +13,8 @@ use Doctrine\Common\Annotations\AnnotationException;
  */
 final class Middleware implements AnnotationInterface
 {
-    /**
-     * @var string|null
-     */
-    public $bus;
-
-    /**
-     * @var int
-     */
-    public $priority;
+    public ?string $bus;
+    public int $priority;
 
     /**
      * @param mixed[] $values

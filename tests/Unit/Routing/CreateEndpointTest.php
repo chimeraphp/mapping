@@ -60,9 +60,7 @@ final class CreateEndpointTest extends TestCase
     {
         return [
             'empty command'         => [['redirectTo' => 'test']],
-            'non-string command'    => [['command' => false, 'redirectTo' => 'test']],
             'empty redirectTo'      => [['command' => 'test']],
-            'non-string redirectTo' => [['command' => 'test', 'redirectTo' => false]],
         ];
     }
 }

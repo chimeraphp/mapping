@@ -58,11 +58,7 @@ final class EndpointTest extends TestCase
     {
         return [
             'null path'                      => [['name' => 'test']],
-            'non-string path'                => [['path' => false, 'name' => 'test']],
             'null name'                      => [['path' => '/']],
-            'non-string name'                => [['path' => '/', 'name' => false]],
-            'non-string app'                 => [['path' => '/', 'name' => 'test', 'app' => false]],
-            'non-array methods'              => [['path' => '/', 'name' => 'test', 'methods' => false]],
             'empty array methods'            => [['path' => '/', 'name' => 'test', 'methods' => []]],
             'non-string elements in methods' => [['path' => '/', 'name' => 'test', 'methods' => [false]]],
             'non HTTP methods'               => [['path' => '/', 'name' => 'test', 'methods' => ['blah']]],
