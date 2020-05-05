@@ -25,12 +25,36 @@ final class CreateEndpointTest extends TestCase
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
+        $annotation = new CreateEndpoint(
+            self::ENDPOINT_DATA + ['command' => 'testing', 'redirectTo' => 'test', 'async' => true]
+        );
+
+        $annotation->validate('class A');
+
+        self::assertSame('testing', $annotation->command);
+        self::assertSame('test', $annotation->redirectTo);
+        self::assertSame(['POST'], $annotation->methods);
+        self::assertTrue($annotation->async);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct()
+     * @covers ::validateAdditionalData()
+     * @covers ::defaultMethods()
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     */
+    public function validateShouldNotRaiseExceptionsWhenAsyncNotIsProvided(): void
+    {
         $annotation = new CreateEndpoint(self::ENDPOINT_DATA + ['command' => 'testing', 'redirectTo' => 'test']);
         $annotation->validate('class A');
 
         self::assertSame('testing', $annotation->command);
         self::assertSame('test', $annotation->redirectTo);
         self::assertSame(['POST'], $annotation->methods);
+        self::assertFalse($annotation->async);
     }
 
     /**
@@ -60,9 +84,7 @@ final class CreateEndpointTest extends TestCase
     {
         return [
             'empty command'         => [['redirectTo' => 'test']],
-            'non-string command'    => [['command' => false, 'redirectTo' => 'test']],
             'empty redirectTo'      => [['command' => 'test']],
-            'non-string redirectTo' => [['command' => 'test', 'redirectTo' => false]],
         ];
     }
 }

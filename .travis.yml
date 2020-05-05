@@ -1,10 +1,8 @@
-dist: xenial
-sudo: false
+os: linux
 language: php
 
 php:
-  - 7.3
-  - 7.4snapshot
+  - 7.4
   - nightly
 
 cache:
@@ -52,4 +50,4 @@ jobs:
         - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{.disabled,}
         - if [[ ! $(php -m | grep -si xdebug) ]]; then echo "xdebug required for mutation tests"; exit 1; fi
       script:
-        - ./vendor/bin/infection --test-framework-options='--testsuite=unit' --threads=$(nproc) --min-msi=79 --min-covered-msi=79
+        - ./vendor/bin/infection --test-framework-options='--testsuite=unit' --threads=$(nproc) --min-msi=89 --min-covered-msi=90

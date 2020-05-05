@@ -11,25 +11,14 @@ abstract class Endpoint implements Annotation
 {
     private const ALLOWED_METHODS = ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'OPTIONS', 'HEAD'];
 
-    /**
-     * @var string
-     */
-    public $path;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string|null
-     */
-    public $app;
+    public ?string $path;
+    public ?string $name;
+    public ?string $app;
 
     /**
      * @var string[]
      */
-    public $methods;
+    public array $methods;
 
     /**
      * @param mixed[] $values
@@ -42,9 +31,6 @@ abstract class Endpoint implements Annotation
         $this->methods = $values['methods'] ?? $this->defaultMethods();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $context): void
     {
         $validator = new Validator(static::class, $context);

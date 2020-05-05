@@ -6,25 +6,13 @@ namespace Chimera\Mapping\Tests\Functional;
 use Chimera\Mapping\Annotation;
 use Chimera\Mapping\Reader;
 use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * @var Reader
-     */
-    private $reader;
-
-    /**
-     * @beforeClass
-     */
-    public static function registerAutoLoader(): void
-    {
-        AnnotationRegistry::registerUniqueLoader('class_exists');
-    }
+    private Reader $reader;
 
     /**
      * @before
@@ -35,8 +23,12 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @param class-string<T> $className
+     *
      * @throws AnnotationException
      * @throws ReflectionException
+     *
+     * @template T
      */
     protected function readAnnotation(string $className, string $annotation): ?Annotation
     {

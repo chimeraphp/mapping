@@ -13,15 +13,8 @@ use function implode;
  */
 final class Validator
 {
-    /**
-     * @var string
-     */
-    private $annotation;
-
-    /**
-     * @var string
-     */
-    private $context;
+    private string $annotation;
+    private string $context;
 
     public function __construct(string $annotation, string $context)
     {

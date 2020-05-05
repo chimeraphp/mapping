@@ -25,11 +25,31 @@ final class ExecuteEndpointTest extends TestCase
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
+        $annotation = new ExecuteEndpoint(self::ENDPOINT_DATA + ['command' => 'testing', 'async' => true]);
+        $annotation->validate('class A');
+
+        self::assertSame('testing', $annotation->command);
+        self::assertSame(['PUT', 'PATCH', 'DELETE'], $annotation->methods);
+        self::assertTrue($annotation->async);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct()
+     * @covers ::validateAdditionalData()
+     * @covers ::defaultMethods()
+     * @covers \Chimera\Mapping\Validator
+     * @covers \Chimera\Mapping\Routing\Endpoint
+     */
+    public function validateShouldNotRaiseExceptionsWhenAsyncNotIsProvided(): void
+    {
         $annotation = new ExecuteEndpoint(self::ENDPOINT_DATA + ['command' => 'testing']);
         $annotation->validate('class A');
 
         self::assertSame('testing', $annotation->command);
         self::assertSame(['PUT', 'PATCH', 'DELETE'], $annotation->methods);
+        self::assertFalse($annotation->async);
     }
 
     /**
@@ -59,7 +79,6 @@ final class ExecuteEndpointTest extends TestCase
     {
         return [
             'empty command'      => [[]],
-            'non-string command' => [['command' => false]],
         ];
     }
 }

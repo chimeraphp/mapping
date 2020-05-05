@@ -60,9 +60,7 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     {
         return [
             'empty command'      => [['query' => 'test']],
-            'non-string command' => [['command' => false, 'query' => 'test']],
             'empty query'        => [['command' => 'test']],
-            'non-string query'   => [['query' => false, 'command' => 'test']],
         ];
     }
 }

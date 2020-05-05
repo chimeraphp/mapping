@@ -11,9 +11,6 @@ use Chimera\Mapping\Validator;
  */
 final class SimpleEndpoint extends Endpoint
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function validateAdditionalData(Validator $validator): void
     {
     }

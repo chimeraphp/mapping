@@ -13,11 +13,7 @@ use Doctrine\Common\Annotations\AnnotationException;
  */
 final class QueryHandler implements AnnotationInterface
 {
-    /**
-     * @Required
-     * @var string
-     */
-    public $handles;
+    public ?string $handles;
 
     /**
      * @param mixed[] $values

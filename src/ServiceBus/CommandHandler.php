@@ -13,10 +13,7 @@ use Doctrine\Common\Annotations\AnnotationException;
  */
 final class CommandHandler implements AnnotationInterface
 {
-    /**
-     * @var string
-     */
-    public $handles;
+    public ?string $handles;
 
     /**
      * @param mixed[] $values
