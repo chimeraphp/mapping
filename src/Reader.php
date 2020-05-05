@@ -27,6 +27,8 @@ final class Reader
     }
 
     /**
+     * @param ReflectionClass<object> $class
+     *
      * @return Annotation[]
      *
      * @throws AnnotationException
@@ -49,6 +51,8 @@ final class Reader
     }
 
     /**
+     * @param ReflectionClass<object> $class
+     *
      * @throws AnnotationException
      */
     public function getClassAnnotation(ReflectionClass $class, string $annotationName): ?Annotation

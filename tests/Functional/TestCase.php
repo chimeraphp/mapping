@@ -23,8 +23,12 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @param class-string<T> $className
+     *
      * @throws AnnotationException
      * @throws ReflectionException
+     *
+     * @template T
      */
     protected function readAnnotation(string $className, string $annotation): ?Annotation
     {
