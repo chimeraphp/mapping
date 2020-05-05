@@ -33,8 +33,6 @@ final class Middleware implements AnnotationInterface
     public function validate(string $context): void
     {
         $validator = new Validator(self::class, $context);
-        $validator->requiredScalar('path', 'string', $this->path);
         $validator->nonRequiredScalar('app', 'string', $this->app);
-        $validator->nonRequiredScalar('priority', 'integer', $this->priority);
     }
 }

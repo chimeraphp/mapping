@@ -7,7 +7,6 @@ use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader as ReaderInterface;
 use ReflectionClass;
-use function assert;
 
 final class Reader
 {
@@ -58,11 +57,12 @@ final class Reader
     public function getClassAnnotation(ReflectionClass $class, string $annotationName): ?Annotation
     {
         $annotation = $this->decorated->getClassAnnotation($class, $annotationName);
-        assert($annotation instanceof Annotation || $annotation === null);
 
-        if ($annotation instanceof Annotation) {
-            $annotation->validate('class ' . $class->getName());
+        if (! $annotation instanceof Annotation) {
+            return null;
         }
+
+        $annotation->validate('class ' . $class->getName());
 
         return $annotation;
     }

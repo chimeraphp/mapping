@@ -29,6 +29,21 @@ final class CommandHandlerTest extends TestCase
 
     /**
      * @test
+     *
+     * @covers ::__construct()
+     * @covers ::validate()
+     * @covers \Chimera\Mapping\Validator
+     */
+    public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
+    {
+        $annotation = new CommandHandler(['value' => 'testing']);
+        $annotation->validate('class A');
+
+        self::assertSame('testing', $annotation->handles);
+    }
+
+    /**
+     * @test
      * @dataProvider invalidScenarios
      *
      * @covers ::__construct()

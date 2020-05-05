@@ -32,6 +32,5 @@ final class Middleware implements AnnotationInterface
     {
         $validator = new Validator(self::class, $context);
         $validator->nonRequiredScalar('bus', 'string', $this->bus);
-        $validator->requiredScalar('priority', 'integer', $this->priority);
     }
 }

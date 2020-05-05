@@ -34,6 +34,22 @@ final class MiddlewareTest extends TestCase
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      */
+    public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
+    {
+        $annotation = new Middleware(['value' => 'testing', 'priority' => 10]);
+        $annotation->validate('class A');
+
+        self::assertSame('testing', $annotation->bus);
+        self::assertSame(10, $annotation->priority);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct()
+     * @covers ::validate()
+     * @covers \Chimera\Mapping\Validator
+     */
     public function validateShouldNotRaiseExceptionsWhenNothingIsProvided(): void
     {
         $annotation = new Middleware([]);
