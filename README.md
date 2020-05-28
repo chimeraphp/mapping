@@ -71,7 +71,7 @@ PSR-15 application:
 * `Chimera\Mapping\Routing\CreateAndFetchEndpoint`: adds an endpoint
 that will execute a command to create a resource and then a query to fetch
 its state
-* `Chimera\Mapping\Routing\CreatexEndpoint`: adds an endpoint
+* `Chimera\Mapping\Routing\CreateEndpoint`: adds an endpoint
 that will execute a command to create a resource
 * `Chimera\Mapping\Routing\ExecuteAndFetchEndpoint`: adds an endpoint
 that will execute a command to modify a resource and then a query to fetch
