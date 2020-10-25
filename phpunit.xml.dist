@@ -10,7 +10,16 @@
     beStrictAboutCoversAnnotation="true"
     beStrictAboutResourceUsageDuringSmallTests="true"
     forceCoversAnnotation="true"
+    failOnWarning="true"
+    failOnRisky="true"
+    executionOrder="random"
 >
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory>src</directory>
+        </include>
+    </coverage>
+
     <testsuites>
         <testsuite name="unit">
             <directory>tests/Unit</directory>
@@ -20,10 +29,4 @@
             <directory>tests/Functional</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
 </phpunit>
