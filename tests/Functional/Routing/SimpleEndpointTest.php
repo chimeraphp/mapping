@@ -6,21 +6,19 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\SimpleEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Endpoint
+ * @covers \Chimera\Mapping\Routing\SimpleEndpoint
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class SimpleEndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FetchBookRequestHandler::class, SimpleEndpoint::class);
-        assert($annotation instanceof SimpleEndpoint || $annotation === null);
 
         self::assertInstanceOf(SimpleEndpoint::class, $annotation);
         self::assertSame('/books/{id}', $annotation->path);
@@ -29,17 +27,10 @@ final class SimpleEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FindBooksRequestHandler::class, SimpleEndpoint::class);
-        assert($annotation instanceof SimpleEndpoint || $annotation === null);
 
         self::assertInstanceOf(SimpleEndpoint::class, $annotation);
         self::assertSame('/books', $annotation->path);
@@ -48,13 +39,7 @@ final class SimpleEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Routing\SimpleEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);
@@ -62,23 +47,17 @@ final class SimpleEndpointTest extends TestCase
     }
 }
 
-/**
- * @SimpleEndpoint("/books/{id}", name="books.fetch")
-*/
+/** @SimpleEndpoint("/books/{id}", name="books.fetch") */
 final class FetchBookRequestHandler
 {
 }
 
-/**
- * @SimpleEndpoint(path="/books", name="books.find", app="my-app")
- */
+/** @SimpleEndpoint(path="/books", name="books.find", app="my-app") */
 final class FindBooksRequestHandler
 {
 }
 
-/**
- * @SimpleEndpoint
- */
+/** @SimpleEndpoint */
 final class FindAuthorsRequestHandler
 {
 }

@@ -17,9 +17,7 @@ final class Middleware implements AnnotationInterface
     public int $priority;
     public ?string $app;
 
-    /**
-     * @param mixed[] $values
-     */
+    /** @param mixed[] $values */
     public function __construct(array $values)
     {
         $this->path     = $values['path'] ?? $values['value'] ?? '/';
@@ -27,9 +25,7 @@ final class Middleware implements AnnotationInterface
         $this->priority = $values['priority'] ?? 0;
     }
 
-    /**
-     * @throws AnnotationException
-     */
+    /** @throws AnnotationException */
     public function validate(string $context): void
     {
         $validator = new Validator(self::class, $context);

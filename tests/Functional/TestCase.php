@@ -14,21 +14,22 @@ abstract class TestCase extends BaseTestCase
 {
     private Reader $reader;
 
-    /**
-     * @before
-     */
+    /** @before */
     public function configureReader(): void
     {
         $this->reader = Reader::fromDefault();
     }
 
     /**
-     * @param class-string<T> $className
+     * @template T of Annotation
+     *
+     * @param class-string    $className
+     * @param class-string<T> $annotation
+     *
+     * @return T|null
      *
      * @throws AnnotationException
      * @throws ReflectionException
-     *
-     * @template T
      */
     protected function readAnnotation(string $className, string $annotation): ?Annotation
     {

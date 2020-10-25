@@ -6,21 +6,19 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Endpoint
+ * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class ExecuteAndFetchEndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(ModifyAuthorHandler::class, ExecuteAndFetchEndpoint::class);
-        assert($annotation instanceof ExecuteAndFetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteAndFetchEndpoint::class, $annotation);
         self::assertSame('/authors/{id}', $annotation->path);
@@ -31,17 +29,10 @@ final class ExecuteAndFetchEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(DisableAuthorHandler::class, ExecuteAndFetchEndpoint::class);
-        assert($annotation instanceof ExecuteAndFetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteAndFetchEndpoint::class, $annotation);
         self::assertSame('/authors/{id}', $annotation->path);
@@ -52,13 +43,7 @@ final class ExecuteAndFetchEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);
@@ -105,9 +90,7 @@ final class DisableAuthorHandler
 {
 }
 
-/**
- * @ExecuteAndFetchEndpoint
- */
+/** @ExecuteAndFetchEndpoint */
 final class SomethingHandler
 {
 }

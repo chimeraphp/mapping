@@ -6,9 +6,7 @@ namespace Chimera\Mapping\Tests\Unit\Routing;
 use Chimera\Mapping\Routing\SimpleEndpoint;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\Routing\SimpleEndpoint
- */
+/** @coversDefaultClass \Chimera\Mapping\Routing\SimpleEndpoint */
 final class SimpleEndpointTest extends TestCase
 {
     private const ENDPOINT_DATA = ['path' => '/tests', 'name' => 'test'];

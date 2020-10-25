@@ -15,17 +15,13 @@ final class QueryHandler implements AnnotationInterface
 {
     public ?string $handles;
 
-    /**
-     * @param mixed[] $values
-     */
+    /** @param mixed[] $values */
     public function __construct(array $values)
     {
         $this->handles = $values['handles'] ?? $values['value'] ?? null;
     }
 
-    /**
-     * @throws AnnotationException
-     */
+    /** @throws AnnotationException */
     public function validate(string $context): void
     {
         $validator = new Validator(self::class, $context);

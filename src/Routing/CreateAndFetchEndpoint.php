@@ -15,9 +15,7 @@ final class CreateAndFetchEndpoint extends Endpoint
     public ?string $query;
     public ?string $redirectTo;
 
-    /**
-     * @param mixed[] $values
-     */
+    /** @param mixed[] $values */
     public function __construct(array $values)
     {
         parent::__construct($values);

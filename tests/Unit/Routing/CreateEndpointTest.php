@@ -7,9 +7,7 @@ use Chimera\Mapping\Routing\CreateEndpoint;
 use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\Routing\CreateEndpoint
- */
+/** @coversDefaultClass \Chimera\Mapping\Routing\CreateEndpoint */
 final class CreateEndpointTest extends TestCase
 {
     private const ENDPOINT_DATA = ['path' => '/tests', 'name' => 'test'];
@@ -77,9 +75,7 @@ final class CreateEndpointTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /**
-     * @return mixed[][]
-     */
+    /** @return mixed[][] */
     public function invalidScenarios(): array
     {
         return [

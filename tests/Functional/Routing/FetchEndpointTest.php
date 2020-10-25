@@ -6,21 +6,19 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\FetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Endpoint
+ * @covers \Chimera\Mapping\Routing\FetchEndpoint
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class FetchEndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\FetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FetchBookHandler::class, FetchEndpoint::class);
-        assert($annotation instanceof FetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(FetchEndpoint::class, $annotation);
         self::assertSame('/books/{id}', $annotation->path);
@@ -30,17 +28,10 @@ final class FetchEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\FetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FindBooksHandler::class, FetchEndpoint::class);
-        assert($annotation instanceof FetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(FetchEndpoint::class, $annotation);
         self::assertSame('/books', $annotation->path);
@@ -50,13 +41,7 @@ final class FetchEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\FetchEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);
@@ -72,23 +57,17 @@ final class FindBooks
 {
 }
 
-/**
- * @FetchEndpoint("/books/{id}", query=FetchBook::class, name="books.fetch")
-*/
+/** @FetchEndpoint("/books/{id}", query=FetchBook::class, name="books.fetch") */
 final class FetchBookHandler
 {
 }
 
-/**
- * @FetchEndpoint(path="/books", query=FindBooks::class, name="books.find", app="my-app")
- */
+/** @FetchEndpoint(path="/books", query=FindBooks::class, name="books.find", app="my-app") */
 final class FindBooksHandler
 {
 }
 
-/**
- * @FetchEndpoint
- */
+/** @FetchEndpoint */
 final class FindAuthorsHandler
 {
 }

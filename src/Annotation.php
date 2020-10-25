@@ -7,8 +7,6 @@ use Doctrine\Common\Annotations\AnnotationException;
 
 interface Annotation
 {
-    /**
-     * @throws AnnotationException
-     */
+    /** @throws AnnotationException */
     public function validate(string $context): void;
 }

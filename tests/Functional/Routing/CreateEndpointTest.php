@@ -6,21 +6,19 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\CreateEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Endpoint
+ * @covers \Chimera\Mapping\Routing\CreateEndpoint
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class CreateEndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(AddBookToCollectionHandler::class, CreateEndpoint::class);
-        assert($annotation instanceof CreateEndpoint || $annotation === null);
 
         self::assertInstanceOf(CreateEndpoint::class, $annotation);
         self::assertSame('/books', $annotation->path);
@@ -32,17 +30,10 @@ final class CreateEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RegisterAuthorHandler::class, CreateEndpoint::class);
-        assert($annotation instanceof CreateEndpoint || $annotation === null);
 
         self::assertInstanceOf(CreateEndpoint::class, $annotation);
         self::assertSame('/authors', $annotation->path);
@@ -54,13 +45,7 @@ final class CreateEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\CreateEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);
@@ -76,9 +61,7 @@ final class RegisterAuthor
 {
 }
 
-/**
- * @CreateEndpoint("/books", command=AddBookToCollection::class, name="books.create", redirectTo="books.fetch")
-*/
+/** @CreateEndpoint("/books", command=AddBookToCollection::class, name="books.create", redirectTo="books.fetch") */
 final class AddBookToCollectionHandler
 {
 }
@@ -97,9 +80,7 @@ final class RegisterAuthorHandler
 {
 }
 
-/**
- * @CreateEndpoint
- */
+/** @CreateEndpoint */
 final class RegisterSomethingNew
 {
 }

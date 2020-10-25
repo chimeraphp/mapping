@@ -6,21 +6,19 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\ExecuteEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
-use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Endpoint
+ * @covers \Chimera\Mapping\Routing\ExecuteEndpoint
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class ExecuteEndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RemoveBookHandler::class, ExecuteEndpoint::class);
-        assert($annotation instanceof ExecuteEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteEndpoint::class, $annotation);
         self::assertSame('/books/{id}', $annotation->path);
@@ -31,17 +29,10 @@ final class ExecuteEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RenameBookHandler::class, ExecuteEndpoint::class);
-        assert($annotation instanceof ExecuteEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteEndpoint::class, $annotation);
         self::assertSame('/books/{id}', $annotation->path);
@@ -52,13 +43,7 @@ final class ExecuteEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     * @covers \Chimera\Mapping\Routing\ExecuteEndpoint
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);
@@ -74,9 +59,7 @@ final class RenameBook
 {
 }
 
-/**
- * @ExecuteEndpoint("/books/{id}", command=RemoveBook::class, name="books.remove", methods={"DELETE"})
-*/
+/** @ExecuteEndpoint("/books/{id}", command=RemoveBook::class, name="books.remove", methods={"DELETE"}) */
 final class RemoveBookHandler
 {
 }
@@ -95,9 +78,7 @@ final class RenameBookHandler
 {
 }
 
-/**
- * @ExecuteEndpoint
- */
+/** @ExecuteEndpoint */
 final class RemoveAuthorHandler
 {
 }

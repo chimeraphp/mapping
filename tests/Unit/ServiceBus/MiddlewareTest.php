@@ -6,9 +6,7 @@ namespace Chimera\Mapping\Tests\Unit\ServiceBus;
 use Chimera\Mapping\ServiceBus\Middleware;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\ServiceBus\Middleware
- */
+/** @coversDefaultClass \Chimera\Mapping\ServiceBus\Middleware */
 final class MiddlewareTest extends TestCase
 {
     /**

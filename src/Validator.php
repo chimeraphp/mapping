@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Chimera\Mapping;
 
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function array_intersect;
 use function gettype;
 use function implode;
 
-/**
- * @internal
- */
+/** @internal */
 final class Validator
 {
     private string $annotation;
@@ -65,6 +64,7 @@ final class Validator
         $this->verifyType($attribute, 'array', $value);
 
         if (array_intersect($value, $allowedValues) === []) {
+            // @phpstan-ignore-next-line
             throw AnnotationException::enumeratorError(
                 $attribute,
                 $this->annotation,

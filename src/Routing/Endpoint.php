@@ -15,14 +15,10 @@ abstract class Endpoint implements Annotation
     public ?string $name;
     public ?string $app;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     public array $methods;
 
-    /**
-     * @param mixed[] $values
-     */
+    /** @param mixed[] $values */
     public function __construct(array $values)
     {
         $this->path    = $values['path'] ?? $values['value'] ?? null;
@@ -42,13 +38,9 @@ abstract class Endpoint implements Annotation
         $this->validateAdditionalData($validator);
     }
 
-    /**
-     * @throws AnnotationException
-     */
+    /** @throws AnnotationException */
     abstract protected function validateAdditionalData(Validator $validator): void;
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     abstract protected function defaultMethods(): array;
 }
