@@ -18,7 +18,7 @@
         "doctrine/annotations": "^1.11.x-dev#2e941465e8565bc26c6b18b54c00027cacccb1bd"
     },
     "require-dev": {
-        "infection/infection": "^0.16",
+        "infection/infection": "^0.18",
         "lcobucci/coding-standard": "^6.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12",
