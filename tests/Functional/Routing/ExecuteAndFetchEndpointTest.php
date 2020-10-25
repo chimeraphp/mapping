@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class ExecuteAndFetchEndpointTest extends TestCase
@@ -105,9 +106,7 @@ final class DisableAuthorHandler
 {
 }
 
-/**
- * @ExecuteAndFetchEndpoint
- */
+/** @ExecuteAndFetchEndpoint */
 final class SomethingHandler
 {
 }

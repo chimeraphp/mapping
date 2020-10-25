@@ -6,9 +6,7 @@ namespace Chimera\Mapping\Tests\Unit\Routing;
 use Chimera\Mapping\Routing\Middleware;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\Routing\Middleware
- */
+/** @coversDefaultClass \Chimera\Mapping\Routing\Middleware */
 final class MiddlewareTest extends TestCase
 {
     /**

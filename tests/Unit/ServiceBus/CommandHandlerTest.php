@@ -7,9 +7,7 @@ use Chimera\Mapping\ServiceBus\CommandHandler;
 use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\ServiceBus\CommandHandler
- */
+/** @coversDefaultClass \Chimera\Mapping\ServiceBus\CommandHandler */
 final class CommandHandlerTest extends TestCase
 {
     /**
@@ -60,9 +58,7 @@ final class CommandHandlerTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /**
-     * @return mixed[][]
-     */
+    /** @return mixed[][] */
     public function invalidScenarios(): array
     {
         return [

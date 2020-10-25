@@ -13,19 +13,13 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-/**
- * @coversDefaultClass \Chimera\Mapping\Reader
- */
+/** @coversDefaultClass \Chimera\Mapping\Reader */
 final class ReaderTest extends TestCase
 {
-    /**
-     * @var ReaderInterface|MockObject
-     */
+    /** @var ReaderInterface|MockObject */
     private $decorated;
 
-    /**
-     * @before
-     */
+    /** @before */
     public function configureDependencies(): void
     {
         $this->decorated = $this->createMock(ReaderInterface::class);

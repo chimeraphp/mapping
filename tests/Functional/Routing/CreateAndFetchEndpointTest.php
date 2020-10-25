@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\CreateAndFetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class CreateAndFetchEndpointTest extends TestCase
@@ -111,9 +112,7 @@ final class RegisterLibrarianHandler
 {
 }
 
-/**
- * @CreateAndFetchEndpoint
- */
+/** @CreateAndFetchEndpoint */
 final class RegisterSomethingElseHandler
 {
 }

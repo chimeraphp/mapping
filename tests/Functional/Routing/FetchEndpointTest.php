@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\FetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class FetchEndpointTest extends TestCase
@@ -72,23 +73,17 @@ final class FindBooks
 {
 }
 
-/**
- * @FetchEndpoint("/books/{id}", query=FetchBook::class, name="books.fetch")
-*/
+/** @FetchEndpoint("/books/{id}", query=FetchBook::class, name="books.fetch") */
 final class FetchBookHandler
 {
 }
 
-/**
- * @FetchEndpoint(path="/books", query=FindBooks::class, name="books.find", app="my-app")
- */
+/** @FetchEndpoint(path="/books", query=FindBooks::class, name="books.find", app="my-app") */
 final class FindBooksHandler
 {
 }
 
-/**
- * @FetchEndpoint
- */
+/** @FetchEndpoint */
 final class FindAuthorsHandler
 {
 }

@@ -5,6 +5,7 @@ namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
 use Chimera\Mapping\ServiceBus\Middleware;
 use Chimera\Mapping\Tests\Functional\TestCase;
+
 use function assert;
 
 final class MiddlewareTest extends TestCase
@@ -58,23 +59,17 @@ final class MiddlewareTest extends TestCase
     }
 }
 
-/**
- * @Middleware("my-app.query_bus", priority=1)
- */
+/** @Middleware("my-app.query_bus", priority=1) */
 final class BusMiddleware1
 {
 }
 
-/**
- * @Middleware(bus="my-app.query_bus", priority=1)
- */
+/** @Middleware(bus="my-app.query_bus", priority=1) */
 final class BusMiddleware2
 {
 }
 
-/**
- * @Middleware
- */
+/** @Middleware */
 final class BusMiddleware3
 {
 }

@@ -11,6 +11,7 @@ use Chimera\Mapping\Validator;
  */
 final class SimpleEndpoint extends Endpoint
 {
+    // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
     protected function validateAdditionalData(Validator $validator): void
     {
     }

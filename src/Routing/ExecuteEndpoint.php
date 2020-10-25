@@ -14,9 +14,7 @@ final class ExecuteEndpoint extends Endpoint
     public ?string $command;
     public bool $async;
 
-    /**
-     * @param mixed[] $values
-     */
+    /** @param mixed[] $values */
     public function __construct(array $values)
     {
         parent::__construct($values);

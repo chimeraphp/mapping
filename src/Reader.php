@@ -17,9 +17,7 @@ final class Reader
         $this->decorated = $reader;
     }
 
-    /**
-     * @throws AnnotationException
-     */
+    /** @throws AnnotationException */
     public static function fromDefault(): self
     {
         return new self(new AnnotationReader());

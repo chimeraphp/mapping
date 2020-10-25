@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\ExecuteEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class ExecuteEndpointTest extends TestCase
@@ -74,9 +75,7 @@ final class RenameBook
 {
 }
 
-/**
- * @ExecuteEndpoint("/books/{id}", command=RemoveBook::class, name="books.remove", methods={"DELETE"})
-*/
+/** @ExecuteEndpoint("/books/{id}", command=RemoveBook::class, name="books.remove", methods={"DELETE"}) */
 final class RemoveBookHandler
 {
 }
@@ -95,9 +94,7 @@ final class RenameBookHandler
 {
 }
 
-/**
- * @ExecuteEndpoint
- */
+/** @ExecuteEndpoint */
 final class RemoveAuthorHandler
 {
 }

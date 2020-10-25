@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\CreateEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class CreateEndpointTest extends TestCase
@@ -76,9 +77,7 @@ final class RegisterAuthor
 {
 }
 
-/**
- * @CreateEndpoint("/books", command=AddBookToCollection::class, name="books.create", redirectTo="books.fetch")
-*/
+/** @CreateEndpoint("/books", command=AddBookToCollection::class, name="books.create", redirectTo="books.fetch") */
 final class AddBookToCollectionHandler
 {
 }
@@ -97,9 +96,7 @@ final class RegisterAuthorHandler
 {
 }
 
-/**
- * @CreateEndpoint
- */
+/** @CreateEndpoint */
 final class RegisterSomethingNew
 {
 }

@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 use Chimera\Mapping\ServiceBus\QueryHandler;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class QueryHandlerTest extends TestCase
@@ -62,23 +63,17 @@ final class FindBooks
 {
 }
 
-/**
- * @QueryHandler(FetchBook::class)
- */
+/** @QueryHandler(FetchBook::class) */
 final class FetchBookHandler
 {
 }
 
-/**
- * @QueryHandler(handles=FindBooks::class)
- */
+/** @QueryHandler(handles=FindBooks::class) */
 final class FindBooksHandler
 {
 }
 
-/**
- * @QueryHandler
- */
+/** @QueryHandler */
 final class FetchAuthorHandler
 {
 }

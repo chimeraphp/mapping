@@ -5,6 +5,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 
 use Chimera\Mapping\Routing\Middleware;
 use Chimera\Mapping\Tests\Functional\TestCase;
+
 use function assert;
 
 final class MiddlewareTest extends TestCase
@@ -61,23 +62,17 @@ final class MiddlewareTest extends TestCase
     }
 }
 
-/**
- * @Middleware("/testing", priority=1, app="my-app")
- */
+/** @Middleware("/testing", priority=1, app="my-app") */
 final class HttpMiddleware1
 {
 }
 
-/**
- * @Middleware(path="/testing", priority=1, app="my-app")
- */
+/** @Middleware(path="/testing", priority=1, app="my-app") */
 final class HttpMiddleware2
 {
 }
 
-/**
- * @Middleware
- */
+/** @Middleware */
 final class HttpMiddleware3
 {
 }

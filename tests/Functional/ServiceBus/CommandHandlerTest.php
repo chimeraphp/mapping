@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 use Chimera\Mapping\ServiceBus\CommandHandler;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class CommandHandlerTest extends TestCase
@@ -61,23 +62,17 @@ final class CreateBook
 {
 }
 
-/**
- * @CommandHandler(CreateAuthor::class)
- */
+/** @CommandHandler(CreateAuthor::class) */
 final class CreateAuthorHandler
 {
 }
 
-/**
- * @CommandHandler(handles=CreateBook::class)
- */
+/** @CommandHandler(handles=CreateBook::class) */
 final class CreateBookHandler
 {
 }
 
-/**
- * @CommandHandler
- */
+/** @CommandHandler */
 final class ModifyAuthorHandler
 {
 }

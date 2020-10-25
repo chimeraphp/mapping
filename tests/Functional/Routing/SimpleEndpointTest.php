@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional\Routing;
 use Chimera\Mapping\Routing\SimpleEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
+
 use function assert;
 
 final class SimpleEndpointTest extends TestCase
@@ -62,23 +63,17 @@ final class SimpleEndpointTest extends TestCase
     }
 }
 
-/**
- * @SimpleEndpoint("/books/{id}", name="books.fetch")
-*/
+/** @SimpleEndpoint("/books/{id}", name="books.fetch") */
 final class FetchBookRequestHandler
 {
 }
 
-/**
- * @SimpleEndpoint(path="/books", name="books.find", app="my-app")
- */
+/** @SimpleEndpoint(path="/books", name="books.find", app="my-app") */
 final class FindBooksRequestHandler
 {
 }
 
-/**
- * @SimpleEndpoint
- */
+/** @SimpleEndpoint */
 final class FindAuthorsRequestHandler
 {
 }
