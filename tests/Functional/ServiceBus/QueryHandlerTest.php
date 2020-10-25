@@ -9,14 +9,14 @@ use Doctrine\Common\Annotations\AnnotationException;
 
 use function assert;
 
+/**
+ * @covers \Chimera\Mapping\ServiceBus\QueryHandler
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class QueryHandlerTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FetchBookHandler::class, QueryHandler::class);
@@ -26,12 +26,7 @@ final class QueryHandlerTest extends TestCase
         self::assertSame(FetchBook::class, $annotation->handles);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FindBooksHandler::class, QueryHandler::class);
@@ -41,12 +36,7 @@ final class QueryHandlerTest extends TestCase
         self::assertSame(FindBooks::class, $annotation->handles);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\ServiceBus\QueryHandler
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);

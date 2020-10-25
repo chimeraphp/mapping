@@ -8,14 +8,14 @@ use Chimera\Mapping\Tests\Functional\TestCase;
 
 use function assert;
 
+/**
+ * @covers \Chimera\Mapping\Routing\Middleware
+ * @covers \Chimera\Mapping\Reader
+ * @covers \Chimera\Mapping\Validator
+ */
 final class MiddlewareTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Middleware
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(HttpMiddleware1::class, Middleware::class);
@@ -27,12 +27,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(1, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Middleware
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(HttpMiddleware2::class, Middleware::class);
@@ -44,12 +39,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(1, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers \Chimera\Mapping\Routing\Middleware
-     * @covers \Chimera\Mapping\Reader
-     */
+    /** @test */
     public function everythingShouldBeFineIfNoValueWasProvided(): void
     {
         $annotation = $this->readAnnotation(HttpMiddleware3::class, Middleware::class);
