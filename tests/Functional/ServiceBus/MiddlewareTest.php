@@ -6,8 +6,6 @@ namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 use Chimera\Mapping\ServiceBus\Middleware;
 use Chimera\Mapping\Tests\Functional\TestCase;
 
-use function assert;
-
 /**
  * @covers \Chimera\Mapping\ServiceBus\Middleware
  * @covers \Chimera\Mapping\Reader
@@ -19,7 +17,6 @@ final class MiddlewareTest extends TestCase
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware1::class, Middleware::class);
-        assert($annotation instanceof Middleware || $annotation === null);
 
         self::assertInstanceOf(Middleware::class, $annotation);
         self::assertSame('my-app.query_bus', $annotation->bus);
@@ -30,7 +27,6 @@ final class MiddlewareTest extends TestCase
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware2::class, Middleware::class);
-        assert($annotation instanceof Middleware || $annotation === null);
 
         self::assertInstanceOf(Middleware::class, $annotation);
         self::assertSame('my-app.query_bus', $annotation->bus);
@@ -41,7 +37,6 @@ final class MiddlewareTest extends TestCase
     public function everythingShouldBeFineIfNoValueWasProvided(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware3::class, Middleware::class);
-        assert($annotation instanceof Middleware || $annotation === null);
 
         self::assertInstanceOf(Middleware::class, $annotation);
         self::assertNull($annotation->bus);

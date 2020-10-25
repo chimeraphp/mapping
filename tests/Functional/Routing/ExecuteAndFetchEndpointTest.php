@@ -7,8 +7,6 @@ use Chimera\Mapping\Routing\ExecuteAndFetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
 
-use function assert;
-
 /**
  * @covers \Chimera\Mapping\Routing\Endpoint
  * @covers \Chimera\Mapping\Routing\ExecuteAndFetchEndpoint
@@ -21,7 +19,6 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(ModifyAuthorHandler::class, ExecuteAndFetchEndpoint::class);
-        assert($annotation instanceof ExecuteAndFetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteAndFetchEndpoint::class, $annotation);
         self::assertSame('/authors/{id}', $annotation->path);
@@ -36,7 +33,6 @@ final class ExecuteAndFetchEndpointTest extends TestCase
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(DisableAuthorHandler::class, ExecuteAndFetchEndpoint::class);
-        assert($annotation instanceof ExecuteAndFetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(ExecuteAndFetchEndpoint::class, $annotation);
         self::assertSame('/authors/{id}', $annotation->path);

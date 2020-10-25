@@ -21,9 +21,12 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @template T
+     * @template T of Annotation
      *
-     * @param class-string<T> $className
+     * @param class-string    $className
+     * @param class-string<T> $annotation
+     *
+     * @return T|null
      *
      * @throws AnnotationException
      * @throws ReflectionException

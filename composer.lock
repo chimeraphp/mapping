@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ef81843fa983b53945c759b6f8f644f",
+    "content-hash": "1ed71833fa60adeedc79958e0ddb4d17",
     "packages": [
         {
             "name": "doctrine/annotations",
-            "version": "1.11.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "88fb6fb1dae011de24dd6b632811c1ff5c2928f5"
+                "reference": "2e941465e8565bc26c6b18b54c00027cacccb1bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/88fb6fb1dae011de24dd6b632811c1ff5c2928f5",
-                "reference": "88fb6fb1dae011de24dd6b632811c1ff5c2928f5",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/2e941465e8565bc26c6b18b54c00027cacccb1bd",
+                "reference": "2e941465e8565bc26c6b18b54c00027cacccb1bd",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +34,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.11.x-dev"
+                    "dev-master": "1.12.x-dev"
                 }
             },
             "autoload": {
@@ -77,9 +77,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/annotations/issues",
-                "source": "https://github.com/doctrine/annotations/tree/1.11.0"
+                "source": "https://github.com/doctrine/annotations/tree/master"
             },
-            "time": "2020-10-17T22:05:33+00:00"
+            "time": "2020-10-24T07:46:25+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -4686,7 +4686,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "doctrine/annotations": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

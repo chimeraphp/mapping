@@ -48,7 +48,12 @@ final class Reader
     }
 
     /**
+     * @template T of Annotation
+     *
      * @param ReflectionClass<object> $class
+     * @param class-string<T>         $annotationName
+     *
+     * @return T|null
      *
      * @throws AnnotationException
      */

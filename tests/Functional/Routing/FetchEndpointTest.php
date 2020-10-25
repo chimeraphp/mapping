@@ -7,8 +7,6 @@ use Chimera\Mapping\Routing\FetchEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
 
-use function assert;
-
 /**
  * @covers \Chimera\Mapping\Routing\Endpoint
  * @covers \Chimera\Mapping\Routing\FetchEndpoint
@@ -21,7 +19,6 @@ final class FetchEndpointTest extends TestCase
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FetchBookHandler::class, FetchEndpoint::class);
-        assert($annotation instanceof FetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(FetchEndpoint::class, $annotation);
         self::assertSame('/books/{id}', $annotation->path);
@@ -35,7 +32,6 @@ final class FetchEndpointTest extends TestCase
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FindBooksHandler::class, FetchEndpoint::class);
-        assert($annotation instanceof FetchEndpoint || $annotation === null);
 
         self::assertInstanceOf(FetchEndpoint::class, $annotation);
         self::assertSame('/books', $annotation->path);

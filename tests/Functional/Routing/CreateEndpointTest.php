@@ -7,8 +7,6 @@ use Chimera\Mapping\Routing\CreateEndpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
 
-use function assert;
-
 /**
  * @covers \Chimera\Mapping\Routing\Endpoint
  * @covers \Chimera\Mapping\Routing\CreateEndpoint
@@ -21,7 +19,6 @@ final class CreateEndpointTest extends TestCase
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(AddBookToCollectionHandler::class, CreateEndpoint::class);
-        assert($annotation instanceof CreateEndpoint || $annotation === null);
 
         self::assertInstanceOf(CreateEndpoint::class, $annotation);
         self::assertSame('/books', $annotation->path);
@@ -37,7 +34,6 @@ final class CreateEndpointTest extends TestCase
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RegisterAuthorHandler::class, CreateEndpoint::class);
-        assert($annotation instanceof CreateEndpoint || $annotation === null);
 
         self::assertInstanceOf(CreateEndpoint::class, $annotation);
         self::assertSame('/authors', $annotation->path);

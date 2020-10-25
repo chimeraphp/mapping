@@ -5,6 +5,7 @@ namespace Chimera\Mapping\Tests\Unit;
 
 use Chimera\Mapping\Annotation;
 use Chimera\Mapping\Reader;
+use Chimera\Mapping\Routing\Middleware;
 use Doctrine\Common\Annotations\Annotation\Enum;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -104,12 +105,12 @@ final class ReaderTest extends TestCase
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotation')
-                        ->with($class, 'testing')
+                        ->with($class, Middleware::class)
                         ->willReturn(null);
 
         $reader = new Reader($this->decorated);
 
-        self::assertNull($reader->getClassAnnotation($class, 'testing'));
+        self::assertNull($reader->getClassAnnotation($class, Middleware::class));
     }
 
     /**
@@ -132,13 +133,13 @@ final class ReaderTest extends TestCase
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotation')
-                        ->with($class, 'testing')
+                        ->with($class, Middleware::class)
                         ->willReturn($annotation);
 
         $reader = new Reader($this->decorated);
 
         $this->expectExceptionObject($exception);
-        $reader->getClassAnnotation($class, 'testing');
+        $reader->getClassAnnotation($class, Middleware::class);
     }
 
     /**
@@ -159,11 +160,11 @@ final class ReaderTest extends TestCase
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotation')
-                        ->with($class, 'testing')
+                        ->with($class, Annotation::class)
                         ->willReturn($annotation);
 
         $reader = new Reader($this->decorated);
 
-        self::assertSame($annotation, $reader->getClassAnnotation($class, 'testing'));
+        self::assertSame($annotation, $reader->getClassAnnotation($class, Annotation::class));
     }
 }

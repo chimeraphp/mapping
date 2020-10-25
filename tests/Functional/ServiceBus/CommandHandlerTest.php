@@ -7,8 +7,6 @@ use Chimera\Mapping\ServiceBus\CommandHandler;
 use Chimera\Mapping\Tests\Functional\TestCase;
 use Doctrine\Common\Annotations\AnnotationException;
 
-use function assert;
-
 /**
  * @covers \Chimera\Mapping\ServiceBus\CommandHandler
  * @covers \Chimera\Mapping\Reader
@@ -20,7 +18,6 @@ final class CommandHandlerTest extends TestCase
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(CreateAuthorHandler::class, CommandHandler::class);
-        assert($annotation instanceof CommandHandler || $annotation === null);
 
         self::assertInstanceOf(CommandHandler::class, $annotation);
         self::assertSame(CreateAuthor::class, $annotation->handles);
@@ -30,7 +27,6 @@ final class CommandHandlerTest extends TestCase
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(CreateBookHandler::class, CommandHandler::class);
-        assert($annotation instanceof CommandHandler || $annotation === null);
 
         self::assertInstanceOf(CommandHandler::class, $annotation);
         self::assertSame(CreateBook::class, $annotation->handles);
