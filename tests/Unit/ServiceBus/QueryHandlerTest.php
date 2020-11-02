@@ -48,7 +48,7 @@ final class QueryHandlerTest extends TestCase
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      *
-     * @param mixed[] $values
+     * @param array{handles?: string} $values
      */
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
     {
@@ -58,11 +58,9 @@ final class QueryHandlerTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{handles?: string}}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty handles' => [[]],
-        ];
+        yield 'empty handles' => [[]];
     }
 }

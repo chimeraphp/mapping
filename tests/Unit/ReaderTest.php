@@ -154,7 +154,7 @@ final class ReaderTest extends TestCase
         $annotation = $this->createMock(Annotation::class);
         $class      = new ReflectionClass(self::class);
 
-        $annotation->expects(self::exactly(1))
+        $annotation->expects(self::once())
                    ->method('validate')
                    ->with('class ' . self::class);
 

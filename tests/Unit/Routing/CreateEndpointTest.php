@@ -65,7 +65,7 @@ final class CreateEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{command?: string, redirectTo?: string} $values
      */
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
     {
@@ -75,12 +75,10 @@ final class CreateEndpointTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{command?: string, redirectTo?: string}}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty command'         => [['redirectTo' => 'test']],
-            'empty redirectTo'      => [['command' => 'test']],
-        ];
+        yield 'empty command' => [['redirectTo' => 'test']];
+        yield 'empty redirectTo' => [['command' => 'test']];
     }
 }

@@ -16,7 +16,7 @@ final class Middleware implements AnnotationInterface
     public ?string $bus;
     public int $priority;
 
-    /** @param mixed[] $values */
+    /** @param array{bus?: string, value?: string, priority?: int} $values */
     public function __construct(array $values)
     {
         $this->bus      = $values['bus'] ?? $values['value'] ?? null;

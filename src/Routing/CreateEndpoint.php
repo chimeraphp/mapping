@@ -15,7 +15,7 @@ final class CreateEndpoint extends Endpoint
     public ?string $redirectTo;
     public bool $async;
 
-    /** @param mixed[] $values */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, methods?: list<string>, command?: string, redirectTo?: string, async?: bool} $values */
     public function __construct(array $values)
     {
         parent::__construct($values);

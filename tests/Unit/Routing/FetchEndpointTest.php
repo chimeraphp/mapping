@@ -40,7 +40,7 @@ final class FetchEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{query?: string} $values
      */
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
     {
@@ -50,11 +50,9 @@ final class FetchEndpointTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{query?: string}}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty query'      => [[]],
-        ];
+        yield 'empty query' => [[]];
     }
 }

@@ -60,7 +60,7 @@ final class ExecuteEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{command?: string, async?: bool} $values
      */
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
     {
@@ -70,11 +70,9 @@ final class ExecuteEndpointTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{command?: string, async?: bool}}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty command'      => [[]],
-        ];
+        yield 'empty command' => [[]];
     }
 }

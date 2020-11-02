@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\Endpoint;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
@@ -60,7 +61,7 @@ final class EndpointTest extends TestCase
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      *
-     * @param mixed[] $values
+     * @param array{path?: string, value?: string, name?: string, app?: string, methods?: mixed[]} $values
      */
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
     {
@@ -70,26 +71,31 @@ final class EndpointTest extends TestCase
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{path?: string, value?: string, name?: string, app?: string, methods?: mixed[]}}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'null path'                      => [['name' => 'test', 'methods' => ['POST']]],
-            'null name'                      => [['path' => '/', 'methods' => ['POST']]],
-            'empty array methods'            => [['path' => '/', 'name' => 'test', 'methods' => []]],
-            'non-string elements in methods' => [['path' => '/', 'name' => 'test', 'methods' => [false]]],
-            'non HTTP methods'               => [['path' => '/', 'name' => 'test', 'methods' => ['blah']]],
-        ];
+        yield 'null path' => [['name' => 'test', 'methods' => ['POST']]];
+        yield 'null name' => [['path' => '/', 'methods' => ['POST']]];
+        yield 'empty array methods' => [['path' => '/', 'name' => 'test', 'methods' => []]];
+        yield 'non-string elements in methods' => [['path' => '/', 'name' => 'test', 'methods' => [false]]];
+        yield 'non HTTP methods' => [['path' => '/', 'name' => 'test', 'methods' => ['blah']]];
     }
 
-    /** @param mixed[] $values */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, methods?: mixed[]} $values */
     private function createInstance(array $values): Endpoint
     {
-        $annotation = $this->getMockForAbstractClass(Endpoint::class, [$values]);
+        return new class ($values) extends Endpoint
+        {
+            // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+            protected function validateAdditionalData(Validator $validator): void
+            {
+            }
 
-        $annotation->method('defaultMethods')
-                   ->willReturn(['GET']);
-
-        return $annotation;
+            /** @inheritdoc */
+            protected function defaultMethods(): array
+            {
+                return ['GET'];
+            }
+        };
     }
 }
