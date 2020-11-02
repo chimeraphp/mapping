@@ -8,6 +8,6 @@
     "logs": {
         "text": "infection.log"
     },
-    "minMsi": 92.78,
-    "minCoveredMsi": 93.75
+    "minMsi": 100,
+    "minCoveredMsi": 100
 }
