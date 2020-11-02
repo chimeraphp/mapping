@@ -14,7 +14,7 @@ final class ExecuteAndFetchEndpoint extends Endpoint
     public ?string $command;
     public ?string $query;
 
-    /** @param mixed[] $values */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, methods?: list<string>, command?: string, query?: string} $values */
     public function __construct(array $values)
     {
         parent::__construct($values);

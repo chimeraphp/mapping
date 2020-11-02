@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
-use Chimera\Mapping\Routing\Endpoint;
 use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +18,7 @@ final class EndpointTest extends TestCase
      */
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
-        $annotation = $this->createInstance(
+        $annotation = new TestAnnotation(
             ['path' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
         );
 
@@ -40,7 +39,7 @@ final class EndpointTest extends TestCase
      */
     public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
     {
-        $annotation = $this->createInstance(
+        $annotation = new TestAnnotation(
             ['value' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
         );
 
@@ -54,42 +53,84 @@ final class EndpointTest extends TestCase
 
     /**
      * @test
+     *
+     * @covers ::__construct()
+     */
+    public function explicitlySetPathShouldBePickedInsteadOfValue(): void
+    {
+        $annotation = new TestAnnotation(
+            ['value' => '/tests', 'path' => '/testing', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
+        );
+
+        self::assertSame('/testing', $annotation->path);
+        self::assertSame('test', $annotation->name);
+        self::assertSame('my-app', $annotation->app);
+        self::assertSame(['GET'], $annotation->methods);
+    }
+
+    /**
+     * @test
      * @dataProvider invalidScenarios
      *
      * @covers ::__construct()
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      *
-     * @param mixed[] $values
+     * @param array{path?: string, value?: string, name?: string, app?: string, methods?: mixed} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
-        $annotation = $this->createInstance($values);
+        $annotation = new TestAnnotation($values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{path?: string, value?: string, name?: string, app?: string, methods?: mixed}, 1: string}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'null path'                      => [['name' => 'test', 'methods' => ['POST']]],
-            'null name'                      => [['path' => '/', 'methods' => ['POST']]],
-            'empty array methods'            => [['path' => '/', 'name' => 'test', 'methods' => []]],
-            'non-string elements in methods' => [['path' => '/', 'name' => 'test', 'methods' => [false]]],
-            'non HTTP methods'               => [['path' => '/', 'name' => 'test', 'methods' => ['blah']]],
+        yield 'null path' => [
+            ['name' => 'test', 'methods' => ['POST']],
+            '"path" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
         ];
-    }
 
-    /** @param mixed[] $values */
-    private function createInstance(array $values): Endpoint
-    {
-        $annotation = $this->getMockForAbstractClass(Endpoint::class, [$values]);
+        yield 'empty path' => [
+            ['path' => '', 'name' => 'test', 'methods' => ['POST']],
+            '"path" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
 
-        $annotation->method('defaultMethods')
-                   ->willReturn(['GET']);
+        yield 'null name' => [
+            ['path' => '/', 'methods' => ['POST']],
+            '"name" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
 
-        return $annotation;
+        yield 'empty name' => [
+            ['path' => '/', 'name' => '', 'methods' => ['POST']],
+            '"name" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
+
+        yield 'empty array methods' => [
+            ['path' => '/', 'name' => 'test', 'methods' => []],
+            '"methods" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects array.',
+        ];
+
+        yield 'non-string elements in methods' => [
+            ['path' => '/', 'name' => 'test', 'methods' => [false]],
+            '"methods" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A accepts '
+            . 'only [GET, POST, DELETE, PATCH, PUT, OPTIONS, HEAD], but got .',
+        ];
+
+        yield 'non HTTP methods' => [
+            ['path' => '/', 'name' => 'test', 'methods' => ['blah']],
+            '"methods" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A accepts '
+            . 'only [GET, POST, DELETE, PATCH, PUT, OPTIONS, HEAD], but got blah.',
+        ];
+
+        yield 'empty app' => [
+            ['path' => '/', 'name' => 'test', 'methods' => ['POST'], 'app' => ''],
+            '"app" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
     }
 }

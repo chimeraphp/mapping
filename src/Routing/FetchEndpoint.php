@@ -13,7 +13,7 @@ final class FetchEndpoint extends Endpoint
 {
     public ?string $query;
 
-    /** @param mixed[] $values */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, methods?: list<string>, query?: string} $values */
     public function __construct(array $values)
     {
         parent::__construct($values);

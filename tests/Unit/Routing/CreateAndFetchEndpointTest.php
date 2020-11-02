@@ -45,23 +45,49 @@ final class CreateAndFetchEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{query?: string, command?: string, redirectTo?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new CreateAndFetchEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{query?: string, command?: string, redirectTo?: string}, 1: string}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty command'      => [['query' => 'test', 'redirectTo' => 'test3']],
-            'empty query'        => [['command' => 'test', 'redirectTo' => 'test3']],
-            'empty redirectTo'      => [['command' => 'test', 'query' => 'test']],
+        yield 'missing command' => [
+            ['query' => 'test', 'redirectTo' => 'test3'],
+            '"command" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty command' => [
+            ['command' => '   ', 'query' => 'test', 'redirectTo' => 'test3'],
+            '"command" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'missing query' => [
+            ['command' => 'test', 'redirectTo' => 'test3'],
+            '"query" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty query' => [
+            ['command' => 'test', 'query' => '', 'redirectTo' => 'test3'],
+            '"query" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'missing redirectTo' => [
+            ['command' => 'test', 'query' => 'test'],
+            '"redirectTo" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty redirectTo' => [
+            ['command' => 'test', 'query' => 'test', 'redirectTo' => ''],
+            '"redirectTo" of @Chimera\Mapping\Routing\CreateAndFetchEndpoint declared on class A expects string.',
         ];
     }
 }

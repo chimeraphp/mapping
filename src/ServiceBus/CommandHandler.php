@@ -15,7 +15,7 @@ final class CommandHandler implements AnnotationInterface
 {
     public ?string $handles;
 
-    /** @param mixed[] $values */
+    /** @param array{handles?: string, value?: string} $values */
     public function __construct(array $values)
     {
         $this->handles = $values['handles'] ?? $values['value'] ?? null;

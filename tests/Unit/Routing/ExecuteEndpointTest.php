@@ -60,21 +60,29 @@ final class ExecuteEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{command?: string, async?: bool} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new ExecuteEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{command?: string, async?: bool}, 1: string}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty command'      => [[]],
+        yield 'missing command' => [
+            [],
+            '"command" of @Chimera\Mapping\Routing\ExecuteEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty command' => [
+            ['command' => ''],
+            '"command" of @Chimera\Mapping\Routing\ExecuteEndpoint declared on class A expects string.',
         ];
     }
 }

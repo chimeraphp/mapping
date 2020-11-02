@@ -6,8 +6,8 @@ namespace Chimera\Mapping;
 use Doctrine\Common\Annotations\AnnotationException;
 
 use function array_intersect;
-use function gettype;
 use function implode;
+use function trim;
 
 /** @internal */
 final class Validator
@@ -32,7 +32,7 @@ final class Validator
             throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, $type);
         }
 
-        $this->verifyType($attribute, $type, $value);
+        $this->requireNonEmptyString($attribute, $type, $value);
     }
 
     /**
@@ -46,7 +46,21 @@ final class Validator
             return;
         }
 
-        $this->verifyType($attribute, $type, $value);
+        $this->requireNonEmptyString($attribute, $type, $value);
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @throws AnnotationException
+     */
+    private function requireNonEmptyString(string $attribute, string $type, $value): void
+    {
+        if ($type !== 'string' || trim($value) !== '') {
+            return;
+        }
+
+        throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, $type);
     }
 
     /**
@@ -61,8 +75,6 @@ final class Validator
             throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, 'array');
         }
 
-        $this->verifyType($attribute, 'array', $value);
-
         if (array_intersect($value, $allowedValues) === []) {
             // @phpstan-ignore-next-line
             throw AnnotationException::enumeratorError(
@@ -72,20 +84,6 @@ final class Validator
                 $allowedValues,
                 implode(', ', $value)
             );
-        }
-    }
-
-    /**
-     * @param mixed $value
-     *
-     * @throws AnnotationException
-     */
-    private function verifyType(string $attribute, string $type, $value): void
-    {
-        $actualType = gettype($value);
-
-        if ($actualType !== $type) {
-            throw AnnotationException::attributeTypeError($attribute, $this->annotation, $this->context, $type, $value);
         }
     }
 }

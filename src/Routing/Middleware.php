@@ -17,7 +17,7 @@ final class Middleware implements AnnotationInterface
     public int $priority;
     public ?string $app;
 
-    /** @param mixed[] $values */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, priority?: int} $values */
     public function __construct(array $values)
     {
         $this->path     = $values['path'] ?? $values['value'] ?? '/';

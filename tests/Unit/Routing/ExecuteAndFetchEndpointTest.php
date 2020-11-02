@@ -41,22 +41,39 @@ final class ExecuteAndFetchEndpointTest extends TestCase
      * @covers \Chimera\Mapping\Validator
      * @covers \Chimera\Mapping\Routing\Endpoint
      *
-     * @param mixed[] $values
+     * @param array{query?: string, command?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new ExecuteAndFetchEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return mixed[][] */
-    public function invalidScenarios(): array
+    /** @return iterable<string, array{0: array{query?: string, command?: string}, 1: string}> */
+    public function invalidScenarios(): iterable
     {
-        return [
-            'empty command'      => [['query' => 'test']],
-            'empty query'        => [['command' => 'test']],
+        yield 'missing command' => [
+            ['query' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty command' => [
+            ['command' => '', 'query' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'missing query' => [
+            ['command' => 'test'],
+            '"query" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty query' => [
+            ['command' => 'test', 'query' => ''],
+            '"query" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
         ];
     }
 }
