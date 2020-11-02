@@ -30,6 +30,20 @@ final class MiddlewareTest extends TestCase
      * @test
      *
      * @covers ::__construct()
+     */
+    public function explicitlySetPathShouldBePickedInsteadOfValue(): void
+    {
+        $annotation = new Middleware(['value' => '/tests', 'path' => '/testing', 'app' => 'testing', 'priority' => 10]);
+
+        self::assertSame('/testing', $annotation->path);
+        self::assertSame('testing', $annotation->app);
+        self::assertSame(10, $annotation->priority);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct()
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      */

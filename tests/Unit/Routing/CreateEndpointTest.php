@@ -67,18 +67,27 @@ final class CreateEndpointTest extends TestCase
      *
      * @param array{command?: string, redirectTo?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new CreateEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return iterable<string, array{0: array{command?: string, redirectTo?: string}}> */
+    /** @return iterable<string, array{0: array{command?: string, redirectTo?: string}, 1: string}> */
     public function invalidScenarios(): iterable
     {
-        yield 'empty command' => [['redirectTo' => 'test']];
-        yield 'empty redirectTo' => [['command' => 'test']];
+        yield 'missing command' => [
+            ['redirectTo' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
+        ];
+
+        yield 'missing redirectTo' => [
+            ['command' => 'test'],
+            '"redirectTo" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
+        ];
     }
 }

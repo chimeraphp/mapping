@@ -43,18 +43,27 @@ final class ExecuteAndFetchEndpointTest extends TestCase
      *
      * @param array{query?: string, command?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new ExecuteAndFetchEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return iterable<string, array{0: array{query?: string, command?: string}}> */
+    /** @return iterable<string, array{0: array{query?: string, command?: string}, 1: string}> */
     public function invalidScenarios(): iterable
     {
-        yield 'empty command' => [['query' => 'test']];
-        yield 'empty query' => [['command' => 'test']];
+        yield 'missing command' => [
+            ['query' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'missing query' => [
+            ['command' => 'test'],
+            '"query" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
     }
 }

@@ -42,17 +42,22 @@ final class FetchEndpointTest extends TestCase
      *
      * @param array{query?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new FetchEndpoint(self::ENDPOINT_DATA + $values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return iterable<string, array{0: array{query?: string}}> */
+    /** @return iterable<string, array{0: array{query?: string}, 1: string}> */
     public function invalidScenarios(): iterable
     {
-        yield 'empty query' => [[]];
+        yield 'missing query' => [
+            [],
+            '"query" of @Chimera\Mapping\Routing\FetchEndpoint declared on class A expects string.',
+        ];
     }
 }

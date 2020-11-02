@@ -45,6 +45,18 @@ final class MiddlewareTest extends TestCase
      * @test
      *
      * @covers ::__construct()
+     */
+    public function explicitlySetBusShouldBePickedInsteadOfValue(): void
+    {
+        $annotation = new Middleware(['value' => 'test', 'bus' => 'testing']);
+
+        self::assertSame('testing', $annotation->bus);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct()
      * @covers ::validate()
      * @covers \Chimera\Mapping\Validator
      */

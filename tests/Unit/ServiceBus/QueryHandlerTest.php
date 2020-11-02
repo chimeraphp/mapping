@@ -42,6 +42,18 @@ final class QueryHandlerTest extends TestCase
 
     /**
      * @test
+     *
+     * @covers ::__construct()
+     */
+    public function explicitlySetHandlesShouldBePickedInsteadOfValue(): void
+    {
+        $annotation = new QueryHandler(['value' => 'test', 'handles' => 'testing']);
+
+        self::assertSame('testing', $annotation->handles);
+    }
+
+    /**
+     * @test
      * @dataProvider invalidScenarios
      *
      * @covers ::__construct()
@@ -50,17 +62,22 @@ final class QueryHandlerTest extends TestCase
      *
      * @param array{handles?: string} $values
      */
-    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values): void
+    public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new QueryHandler($values);
 
         $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
         $annotation->validate('class A');
     }
 
-    /** @return iterable<string, array{0: array{handles?: string}}> */
+    /** @return iterable<string, array{0: array{handles?: string}, 1: string}> */
     public function invalidScenarios(): iterable
     {
-        yield 'empty handles' => [[]];
+        yield 'missing handles' => [
+            [],
+            '"handles" of @Chimera\Mapping\ServiceBus\QueryHandler declared on class A expects string.',
+        ];
     }
 }
