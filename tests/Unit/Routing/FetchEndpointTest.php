@@ -59,5 +59,10 @@ final class FetchEndpointTest extends TestCase
             [],
             '"query" of @Chimera\Mapping\Routing\FetchEndpoint declared on class A expects string.',
         ];
+
+        yield 'empty query' => [
+            ['query' => ''],
+            '"query" of @Chimera\Mapping\Routing\FetchEndpoint declared on class A expects string.',
+        ];
     }
 }

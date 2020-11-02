@@ -61,8 +61,18 @@ final class ExecuteAndFetchEndpointTest extends TestCase
             '"command" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
         ];
 
+        yield 'empty command' => [
+            ['command' => '', 'query' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
         yield 'missing query' => [
             ['command' => 'test'],
+            '"query" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty query' => [
+            ['command' => 'test', 'query' => ''],
             '"query" of @Chimera\Mapping\Routing\ExecuteAndFetchEndpoint declared on class A expects string.',
         ];
     }

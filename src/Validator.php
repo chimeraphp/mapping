@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\AnnotationException;
 use function array_intersect;
 use function gettype;
 use function implode;
+use function trim;
 
 /** @internal */
 final class Validator
@@ -32,6 +33,10 @@ final class Validator
             throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, $type);
         }
 
+        if ($type === 'string' && trim($value) === '') {
+            throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, $type);
+        }
+
         $this->verifyType($attribute, $type, $value);
     }
 
@@ -44,6 +49,10 @@ final class Validator
     {
         if ($value === null) {
             return;
+        }
+
+        if ($type === 'string' && trim($value) === '') {
+            throw AnnotationException::requiredError($attribute, $this->annotation, $this->context, $type);
         }
 
         $this->verifyType($attribute, $type, $value);

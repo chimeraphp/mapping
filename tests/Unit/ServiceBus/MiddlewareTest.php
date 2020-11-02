@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\ServiceBus;
 
 use Chimera\Mapping\ServiceBus\Middleware;
+use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
 /** @coversDefaultClass \Chimera\Mapping\ServiceBus\Middleware */
@@ -67,5 +68,24 @@ final class MiddlewareTest extends TestCase
 
         self::assertNull($annotation->bus);
         self::assertSame(0, $annotation->priority);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct
+     * @covers ::validate
+     * @covers \Chimera\Mapping\Validator
+     */
+    public function validateShouldRaiseExceptionWhenBusIsEmpty(): void
+    {
+        $annotation = new Middleware(['bus' => '     ']);
+
+        $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage(
+            '"bus" of @Chimera\Mapping\ServiceBus\Middleware declared on class A expects string.'
+        );
+
+        $annotation->validate('class A');
     }
 }

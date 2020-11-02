@@ -85,8 +85,18 @@ final class CreateEndpointTest extends TestCase
             '"command" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
         ];
 
+        yield 'empty command' => [
+            ['command' => '', 'redirectTo' => 'test'],
+            '"command" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
+        ];
+
         yield 'missing redirectTo' => [
             ['command' => 'test'],
+            '"redirectTo" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
+        ];
+
+        yield 'empty redirectTo' => [
+            ['command' => 'test', 'redirectTo' => ''],
             '"redirectTo" of @Chimera\Mapping\Routing\CreateEndpoint declared on class A expects string.',
         ];
     }

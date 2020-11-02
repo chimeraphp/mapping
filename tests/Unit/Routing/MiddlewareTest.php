@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\Middleware;
+use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
 
 /** @coversDefaultClass \Chimera\Mapping\Routing\Middleware */
@@ -72,5 +73,24 @@ final class MiddlewareTest extends TestCase
         self::assertSame('/', $annotation->path);
         self::assertNull($annotation->app);
         self::assertSame(0, $annotation->priority);
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct
+     * @covers ::validate
+     * @covers \Chimera\Mapping\Validator
+     */
+    public function validateShouldRaiseExceptionWhenAppIsEmpty(): void
+    {
+        $annotation = new Middleware(['app' => '     ']);
+
+        $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage(
+            '"app" of @Chimera\Mapping\Routing\Middleware declared on class A expects string.'
+        );
+
+        $annotation->validate('class A');
     }
 }

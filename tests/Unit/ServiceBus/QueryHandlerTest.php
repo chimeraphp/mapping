@@ -79,5 +79,10 @@ final class QueryHandlerTest extends TestCase
             [],
             '"handles" of @Chimera\Mapping\ServiceBus\QueryHandler declared on class A expects string.',
         ];
+
+        yield 'empty handles' => [
+            ['handles' => ''],
+            '"handles" of @Chimera\Mapping\ServiceBus\QueryHandler declared on class A expects string.',
+        ];
     }
 }

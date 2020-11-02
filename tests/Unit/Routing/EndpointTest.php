@@ -96,8 +96,18 @@ final class EndpointTest extends TestCase
             '"path" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
         ];
 
+        yield 'empty path' => [
+            ['path' => '', 'name' => 'test', 'methods' => ['POST']],
+            '"path" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
+
         yield 'null name' => [
             ['path' => '/', 'methods' => ['POST']],
+            '"name" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
+        ];
+
+        yield 'empty name' => [
+            ['path' => '/', 'name' => '', 'methods' => ['POST']],
             '"name" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
         ];
 
@@ -116,6 +126,11 @@ final class EndpointTest extends TestCase
             ['path' => '/', 'name' => 'test', 'methods' => ['blah']],
             '"methods" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A accepts '
             . 'only [GET, POST, DELETE, PATCH, PUT, OPTIONS, HEAD], but got blah.',
+        ];
+
+        yield 'empty app' => [
+            ['path' => '/', 'name' => 'test', 'methods' => ['POST'], 'app' => ''],
+            '"app" of @Chimera\Mapping\Tests\Unit\Routing\TestAnnotation declared on class A expects string.',
         ];
     }
 }

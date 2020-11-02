@@ -79,5 +79,10 @@ final class ExecuteEndpointTest extends TestCase
             [],
             '"command" of @Chimera\Mapping\Routing\ExecuteEndpoint declared on class A expects string.',
         ];
+
+        yield 'empty command' => [
+            ['command' => ''],
+            '"command" of @Chimera\Mapping\Routing\ExecuteEndpoint declared on class A expects string.',
+        ];
     }
 }
