@@ -76,12 +76,12 @@ final class Validator
         }
 
         if (array_intersect($value, $allowedValues) === []) {
-            // @phpstan-ignore-next-line
             throw AnnotationException::enumeratorError(
                 $attribute,
                 $this->annotation,
                 $this->context,
                 $allowedValues,
+                // @phpstan-ignore-next-line
                 implode(', ', $value)
             );
         }
