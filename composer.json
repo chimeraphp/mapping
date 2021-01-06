@@ -1,7 +1,7 @@
 {
     "name": "chimera/mapping",
-    "description": "Useful annotations to configure the application layer of your software",
     "type": "library",
+    "description": "Useful annotations to configure the application layer of your software",
     "license": "MIT",
     "authors": [
         {
@@ -9,10 +9,6 @@
             "email": "lcobucci@gmail.com"
         }
     ],
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
     "require": {
         "php": "^7.4 || ^8.0",
         "doctrine/annotations": "^1.11.1"
@@ -27,6 +23,15 @@
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpunit/phpunit": "^9.5"
     },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4.x-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Chimera\\Mapping\\": "src"
@@ -35,11 +40,6 @@
     "autoload-dev": {
         "psr-4": {
             "Chimera\\Mapping\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.4.x-dev"
         }
     }
 }
