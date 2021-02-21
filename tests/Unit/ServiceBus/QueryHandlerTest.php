@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Unit\ServiceBus;
 use Chimera\Mapping\ServiceBus\QueryHandler;
 use Doctrine\Common\Annotations\AnnotationException;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 /** @coversDefaultClass \Chimera\Mapping\ServiceBus\QueryHandler */
 final class QueryHandlerTest extends TestCase
@@ -54,6 +55,18 @@ final class QueryHandlerTest extends TestCase
 
     /**
      * @test
+     *
+     * @covers ::__construct()
+     */
+    public function explicitlySetMethodShouldBePickedInsteadOfValue(): void
+    {
+        $annotation = new QueryHandler(['method' => 'testing']);
+
+        self::assertSame('testing', $annotation->method);
+    }
+
+    /**
+     * @test
      * @dataProvider invalidScenarios
      *
      * @covers ::__construct()
@@ -84,5 +97,73 @@ final class QueryHandlerTest extends TestCase
             ['handles' => ''],
             '"handles" of @Chimera\Mapping\ServiceBus\QueryHandler declared on class A expects string.',
         ];
+
+        yield 'empty method' => [
+            ['handles' => 'Test', 'method' => ''],
+            '"method" of @Chimera\Mapping\ServiceBus\QueryHandler declared on class A expects string.',
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::__construct
+     * @covers ::configure
+     */
+    public function configureShouldModifyAttributesBasedOnReflectionData(): void
+    {
+        $annotation = new QueryHandler(['handles' => 'Test']);
+        $annotation->configure(new ReflectionMethod(ExamplesForQueryHandlerViaReflection::class, 'process'));
+
+        self::assertSame(ExamplesForQueryHandler::class, $annotation->handles);
+        self::assertSame('process', $annotation->method);
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidHandlerMethods
+     *
+     * @covers ::__construct
+     * @covers ::configure
+     */
+    public function configureShouldThrowErrorInCaseOfInvalidParameterConfiguration(string $method): void
+    {
+        $annotation = new QueryHandler(['handles' => 'Test']);
+
+        $this->expectException(AnnotationException::class);
+        $this->expectExceptionMessage('The first parameter of the handler method must be a custom class');
+        $annotation->configure(new ReflectionMethod(ExamplesForQueryHandlerViaReflection::class, $method));
+    }
+
+    /** @return iterable<string, array{0: string}> */
+    public function invalidHandlerMethods(): iterable
+    {
+        yield 'no parameter' => ['noParameter'];
+        yield 'no type' => ['noType'];
+        yield 'using primitive type' => ['primitiveType'];
+    }
+}
+
+final class ExamplesForQueryHandler
+{
+}
+
+final class ExamplesForQueryHandlerViaReflection
+{
+    public function noParameter(): void
+    {
+    }
+
+    // @phpstan-ignore-next-line
+    public function noType($test): void // phpcs:ignore
+    {
+    }
+
+    public function primitiveType(int $test): void // phpcs:ignore
+    {
+    }
+
+    public function process(ExamplesForQueryHandler $command): void // phpcs:ignore
+    {
     }
 }

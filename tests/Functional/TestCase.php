@@ -24,18 +24,21 @@ abstract class TestCase extends BaseTestCase
      * @template T of Annotation
      *
      * @param class-string    $className
-     * @param class-string<T> $annotation
+     * @param class-string<T> $annotationName
      *
      * @return T|null
      *
      * @throws AnnotationException
      * @throws ReflectionException
      */
-    protected function readAnnotation(string $className, string $annotation): ?Annotation
+    protected function readAnnotation(string $className, string $annotationName): ?Annotation
     {
-        return $this->reader->getClassAnnotation(
-            new ReflectionClass($className),
-            $annotation
-        );
+        foreach ($this->reader->getClassAnnotations(new ReflectionClass($className)) as $annotation) {
+            if ($annotation instanceof $annotationName) {
+                return $annotation;
+            }
+        }
+
+        return null;
     }
 }

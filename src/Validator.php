@@ -81,7 +81,6 @@ final class Validator
                 $this->annotation,
                 $this->context,
                 $allowedValues,
-                // @phpstan-ignore-next-line
                 implode(', ', $value)
             );
         }

@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping;
 
+use Chimera\Mapping\ServiceBus\Handler;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader as ReaderInterface;
 use ReflectionClass;
+use ReflectionMethod;
 
 final class Reader
 {
@@ -44,29 +46,30 @@ final class Reader
             $annotations[] = $annotation;
         }
 
+        foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+            foreach ($this->findMethodAnnotations($method) as $annotation) {
+                $annotations[] = $annotation;
+            }
+        }
+
         return $annotations;
     }
 
     /**
-     * @template T of Annotation
-     *
-     * @param ReflectionClass<object> $class
-     * @param class-string<T>         $annotationName
-     *
-     * @return T|null
+     * @return iterable<Handler>
      *
      * @throws AnnotationException
      */
-    public function getClassAnnotation(ReflectionClass $class, string $annotationName): ?Annotation
+    private function findMethodAnnotations(ReflectionMethod $method): iterable
     {
-        $annotation = $this->decorated->getClassAnnotation($class, $annotationName);
+        foreach ($this->decorated->getMethodAnnotations($method) as $annotation) {
+            if (! $annotation instanceof Handler) {
+                continue;
+            }
 
-        if (! $annotation instanceof Annotation) {
-            return null;
+            $annotation->configure($method);
+
+            yield $annotation;
         }
-
-        $annotation->validate('class ' . $class->getName());
-
-        return $annotation;
     }
 }
