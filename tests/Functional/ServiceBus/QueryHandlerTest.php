@@ -9,6 +9,7 @@ use Doctrine\Common\Annotations\AnnotationException;
 
 /**
  * @covers \Chimera\Mapping\ServiceBus\QueryHandler
+ * @covers \Chimera\Mapping\ServiceBus\Handler
  * @covers \Chimera\Mapping\Reader
  * @covers \Chimera\Mapping\Validator
  */
@@ -21,6 +22,7 @@ final class QueryHandlerTest extends TestCase
 
         self::assertInstanceOf(QueryHandler::class, $annotation);
         self::assertSame(FetchBook::class, $annotation->handles);
+        self::assertSame('handle', $annotation->method);
     }
 
     /** @test */
@@ -30,6 +32,17 @@ final class QueryHandlerTest extends TestCase
 
         self::assertInstanceOf(QueryHandler::class, $annotation);
         self::assertSame(FindBooks::class, $annotation->handles);
+        self::assertSame('handle', $annotation->method);
+    }
+
+    /** @test */
+    public function propertiesShouldBeConfiguredProperlyViaMethodsToo(): void
+    {
+        $annotation = $this->readAnnotation(FindAuthorsHandler::class, QueryHandler::class);
+
+        self::assertInstanceOf(QueryHandler::class, $annotation);
+        self::assertSame(FindAuthors::class, $annotation->handles);
+        self::assertSame('process', $annotation->method);
     }
 
     /** @test */
@@ -62,4 +75,16 @@ final class FindBooksHandler
 /** @QueryHandler */
 final class FetchAuthorHandler
 {
+}
+
+final class FindAuthors
+{
+}
+
+final class FindAuthorsHandler
+{
+    /** @QueryHandler */
+    public function process(FindAuthors $query): void // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+    {
+    }
 }

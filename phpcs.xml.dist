@@ -17,9 +17,11 @@
 
     <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
         <exclude-pattern>tests/Functional</exclude-pattern>
+        <exclude-pattern>tests/Unit/ServiceBus</exclude-pattern>
     </rule>
 
     <rule ref="Squiz.Classes.ClassFileName.NoMatch">
         <exclude-pattern>tests/Functional</exclude-pattern>
+        <exclude-pattern>tests/Unit/ServiceBus</exclude-pattern>
     </rule>
 </ruleset>
