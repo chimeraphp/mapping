@@ -5,7 +5,6 @@ namespace Chimera\Mapping\Tests\Unit;
 
 use Chimera\Mapping\Annotation;
 use Chimera\Mapping\Reader;
-use Chimera\Mapping\Routing\Middleware;
 use Doctrine\Common\Annotations\Annotation\Enum;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -90,81 +89,5 @@ final class ReaderTest extends TestCase
 
         $this->expectExceptionObject($exception);
         $reader->getClassAnnotations($class);
-    }
-
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotation()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     */
-    public function getClassAnnotationShouldReturnNullWhenAnnotationWasNotFound(): void
-    {
-        $class = new ReflectionClass(self::class);
-
-        $this->decorated->expects(self::once())
-                        ->method('getClassAnnotation')
-                        ->with($class, Middleware::class)
-                        ->willReturn(null);
-
-        $reader = new Reader($this->decorated);
-
-        self::assertNull($reader->getClassAnnotation($class, Middleware::class));
-    }
-
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotation()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     */
-    public function getClassAnnotationShouldThrowExceptionWhenAnnotationDataIsInvalid(): void
-    {
-        $annotation = $this->createMock(Annotation::class);
-        $exception  = new AnnotationException();
-        $class      = new ReflectionClass(self::class);
-
-        $annotation->expects(self::once())
-                   ->method('validate')
-                   ->with('class ' . self::class)
-                   ->willThrowException($exception);
-
-        $this->decorated->expects(self::once())
-                        ->method('getClassAnnotation')
-                        ->with($class, Middleware::class)
-                        ->willReturn($annotation);
-
-        $reader = new Reader($this->decorated);
-
-        $this->expectExceptionObject($exception);
-        $reader->getClassAnnotation($class, Middleware::class);
-    }
-
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotation()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     */
-    public function getClassAnnotationShouldReturnMatchedAnnotation(): void
-    {
-        $annotation = $this->createMock(Annotation::class);
-        $class      = new ReflectionClass(self::class);
-
-        $annotation->expects(self::once())
-                   ->method('validate')
-                   ->with('class ' . self::class);
-
-        $this->decorated->expects(self::once())
-                        ->method('getClassAnnotation')
-                        ->with($class, Annotation::class)
-                        ->willReturn($annotation);
-
-        $reader = new Reader($this->decorated);
-
-        self::assertSame($annotation, $reader->getClassAnnotation($class, Annotation::class));
     }
 }

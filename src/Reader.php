@@ -46,27 +46,4 @@ final class Reader
 
         return $annotations;
     }
-
-    /**
-     * @template T of Annotation
-     *
-     * @param ReflectionClass<object> $class
-     * @param class-string<T>         $annotationName
-     *
-     * @return T|null
-     *
-     * @throws AnnotationException
-     */
-    public function getClassAnnotation(ReflectionClass $class, string $annotationName): ?Annotation
-    {
-        $annotation = $this->decorated->getClassAnnotation($class, $annotationName);
-
-        if (! $annotation instanceof Annotation) {
-            return null;
-        }
-
-        $annotation->validate('class ' . $class->getName());
-
-        return $annotation;
-    }
 }
