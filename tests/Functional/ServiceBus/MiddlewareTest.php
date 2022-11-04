@@ -3,17 +3,18 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
+use Chimera\Mapping\Reader;
 use Chimera\Mapping\ServiceBus\Middleware;
 use Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\Validator;
+use PHPUnit\Framework\Attributes as PHPUnit;
 
-/**
- * @covers \Chimera\Mapping\ServiceBus\Middleware
- * @covers \Chimera\Mapping\Reader
- * @covers \Chimera\Mapping\Validator
- */
+#[PHPUnit\CoversClass(Middleware::class)]
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class MiddlewareTest extends TestCase
 {
-    /** @test */
+    #[PHPUnit\Test]
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware1::class, Middleware::class);
@@ -23,7 +24,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(1, $annotation->priority);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware2::class, Middleware::class);
@@ -33,7 +34,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(1, $annotation->priority);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function everythingShouldBeFineIfNoValueWasProvided(): void
     {
         $annotation = $this->readAnnotation(BusMiddleware3::class, Middleware::class);

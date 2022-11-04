@@ -6,6 +6,7 @@ namespace Chimera\Mapping\Tests\Functional;
 use Chimera\Mapping\Annotation;
 use Chimera\Mapping\Reader;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;
@@ -14,7 +15,7 @@ abstract class TestCase extends BaseTestCase
 {
     private Reader $reader;
 
-    /** @before */
+    #[PHPUnit\Before]
     public function configureReader(): void
     {
         $this->reader = Reader::fromDefault();

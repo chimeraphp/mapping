@@ -4,20 +4,19 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\ServiceBus;
 
 use Chimera\Mapping\ServiceBus\CommandHandler;
+use Chimera\Mapping\ServiceBus\Handler;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
-/** @coversDefaultClass \Chimera\Mapping\ServiceBus\CommandHandler */
+#[PHPUnit\CoversClass(CommandHandler::class)]
+#[PHPUnit\CoversClass(Handler::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CommandHandlerTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new CommandHandler(['handles' => 'testing']);
@@ -26,13 +25,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('testing', $annotation->handles);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
     {
         $annotation = new CommandHandler(['value' => 'testing']);
@@ -41,11 +34,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('testing', $annotation->handles);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     */
+    #[PHPUnit\Test]
     public function explicitlySetHandlesShouldBePickedInsteadOfValue(): void
     {
         $annotation = new CommandHandler(['value' => 'test', 'handles' => 'testing']);
@@ -53,11 +42,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('testing', $annotation->handles);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     */
+    #[PHPUnit\Test]
     public function explicitlySetMethodShouldBePickedInsteadOfValue(): void
     {
         $annotation = new CommandHandler(['method' => 'testing']);
@@ -65,16 +50,9 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('testing', $annotation->method);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidScenarios
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     *
-     * @param array{handles?: string} $values
-     */
+    /** @param array{handles?: string} $values */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidScenarios')]
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new CommandHandler($values);
@@ -86,7 +64,7 @@ final class CommandHandlerTest extends TestCase
     }
 
     /** @return iterable<string, array{0: array{handles?: string}, 1: string}> */
-    public function invalidScenarios(): iterable
+    public static function invalidScenarios(): iterable
     {
         yield 'missing handles' => [
             [],
@@ -104,12 +82,7 @@ final class CommandHandlerTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct
-     * @covers ::configure
-     */
+    #[PHPUnit\Test]
     public function configureShouldModifyAttributesBasedOnReflectionData(): void
     {
         $annotation = new CommandHandler(['handles' => 'Test']);
@@ -119,13 +92,8 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('process', $annotation->method);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidHandlerMethods
-     *
-     * @covers ::__construct
-     * @covers ::configure
-     */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidHandlerMethods')]
     public function configureShouldThrowErrorInCaseOfInvalidParameterConfiguration(string $method): void
     {
         $annotation = new CommandHandler(['handles' => 'Test']);
@@ -136,7 +104,7 @@ final class CommandHandlerTest extends TestCase
     }
 
     /** @return iterable<string, array{0: string}> */
-    public function invalidHandlerMethods(): iterable
+    public static function invalidHandlerMethods(): iterable
     {
         yield 'no parameter' => ['noParameter'];
         yield 'no type' => ['noType'];

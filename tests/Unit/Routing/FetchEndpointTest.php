@@ -3,24 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
+use Chimera\Mapping\Routing\Endpoint;
 use Chimera\Mapping\Routing\FetchEndpoint;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 
-/** @coversDefaultClass \Chimera\Mapping\Routing\FetchEndpoint */
+#[PHPUnit\CoversClass(FetchEndpoint::class)]
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class FetchEndpointTest extends TestCase
 {
     private const ENDPOINT_DATA = ['path' => '/tests', 'name' => 'test'];
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new FetchEndpoint(self::ENDPOINT_DATA + ['query' => 'testing']);
@@ -30,18 +27,9 @@ final class FetchEndpointTest extends TestCase
         self::assertSame(['GET'], $annotation->methods);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidScenarios
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     *
-     * @param array{query?: string} $values
-     */
+    /** @param array{query?: string} $values */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidScenarios')]
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new FetchEndpoint(self::ENDPOINT_DATA + $values);
@@ -53,7 +41,7 @@ final class FetchEndpointTest extends TestCase
     }
 
     /** @return iterable<string, array{0: array{query?: string}, 1: string}> */
-    public function invalidScenarios(): iterable
+    public static function invalidScenarios(): iterable
     {
         yield 'missing query' => [
             [],

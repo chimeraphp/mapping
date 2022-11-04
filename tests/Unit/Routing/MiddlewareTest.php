@@ -4,19 +4,16 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\Middleware;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 
-/** @coversDefaultClass \Chimera\Mapping\Routing\Middleware */
+#[PHPUnit\CoversClass(Middleware::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class MiddlewareTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new Middleware(['path' => '/tests', 'app' => 'testing', 'priority' => 10]);
@@ -27,11 +24,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(10, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     */
+    #[PHPUnit\Test]
     public function explicitlySetPathShouldBePickedInsteadOfValue(): void
     {
         $annotation = new Middleware(['value' => '/tests', 'path' => '/testing', 'app' => 'testing', 'priority' => 10]);
@@ -41,13 +34,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(10, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
     {
         $annotation = new Middleware(['value' => '/tests', 'app' => 'testing', 'priority' => 10]);
@@ -58,13 +45,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(10, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenNothingIsProvided(): void
     {
         $annotation = new Middleware([]);
@@ -75,20 +56,14 @@ final class MiddlewareTest extends TestCase
         self::assertSame(0, $annotation->priority);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct
-     * @covers ::validate
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldRaiseExceptionWhenAppIsEmpty(): void
     {
         $annotation = new Middleware(['app' => '     ']);
 
         $this->expectException(AnnotationException::class);
         $this->expectExceptionMessage(
-            '"app" of @Chimera\Mapping\Routing\Middleware declared on class A expects string.'
+            '"app" of @Chimera\Mapping\Routing\Middleware declared on class A expects string.',
         );
 
         $annotation->validate('class A');

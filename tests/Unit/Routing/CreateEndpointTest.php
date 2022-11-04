@@ -4,27 +4,24 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\CreateEndpoint;
+use Chimera\Mapping\Routing\Endpoint;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 
-/** @coversDefaultClass \Chimera\Mapping\Routing\CreateEndpoint */
+#[PHPUnit\CoversClass(CreateEndpoint::class)]
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CreateEndpointTest extends TestCase
 {
     private const ENDPOINT_DATA = ['path' => '/tests', 'name' => 'test'];
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new CreateEndpoint(
-            self::ENDPOINT_DATA + ['command' => 'testing', 'redirectTo' => 'test', 'async' => true]
+            self::ENDPOINT_DATA + ['command' => 'testing', 'redirectTo' => 'test', 'async' => true],
         );
 
         $annotation->validate('class A');
@@ -35,15 +32,7 @@ final class CreateEndpointTest extends TestCase
         self::assertTrue($annotation->async);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenAsyncNotIsProvided(): void
     {
         $annotation = new CreateEndpoint(self::ENDPOINT_DATA + ['command' => 'testing', 'redirectTo' => 'test']);
@@ -55,18 +44,9 @@ final class CreateEndpointTest extends TestCase
         self::assertFalse($annotation->async);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidScenarios
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     *
-     * @param array{command?: string, redirectTo?: string} $values
-     */
+    /** @param array{command?: string, redirectTo?: string} $values */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidScenarios')]
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new CreateEndpoint(self::ENDPOINT_DATA + $values);
@@ -78,7 +58,7 @@ final class CreateEndpointTest extends TestCase
     }
 
     /** @return iterable<string, array{0: array{command?: string, redirectTo?: string}, 1: string}> */
-    public function invalidScenarios(): iterable
+    public static function invalidScenarios(): iterable
     {
         yield 'missing command' => [
             ['redirectTo' => 'test'],
