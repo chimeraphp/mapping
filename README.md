@@ -4,7 +4,7 @@
 [![Latest Stable Version]](https://packagist.org/packages/chimera/mapping)
 [![Unstable Version]](https://packagist.org/packages/chimera/mapping)
 
-[![Build Status]](https://github.com/chimeraphp/mapping/actions?query=workflow%3A%22PHPUnit%20Tests%22+branch%3Amaster)
+[![Build Status]](https://github.com/chimeraphp/mapping/actions?query=workflow%3A%22PHPUnit%20Tests%22+branch%3A1.0.x)
 [![Code Coverage]](https://codecov.io/gh/chimeraphp/mapping)
 
 > The term Chimera (_/kɪˈmɪərə/_ or _/kaɪˈmɪərə/_) has come to describe any
@@ -109,7 +109,7 @@ MIT, see [LICENSE].
 [Total Downloads]: https://img.shields.io/packagist/dt/chimera/mapping.svg?style=flat-square
 [Latest Stable Version]: https://img.shields.io/packagist/v/chimera/mapping.svg?style=flat-square
 [Unstable Version]: https://img.shields.io/packagist/vpre/chimera/mapping.svg?style=flat-square
-[Build Status]: https://img.shields.io/github/workflow/status/chimeraphp/mapping/PHPUnit%20tests/master?style=flat-square
+[Build Status]: https://img.shields.io/github/actions/workflow/status/chimeraphp/mapping/phpunit.yml?branch=1.0.x&style=flat-square
 [Code Coverage]: https://codecov.io/gh/chimeraphp/mapping/branch/master/graph/badge.svg
 [Packagist]: http://packagist.org/packages/chimera/mapping
 [Composer]: http://getcomposer.org
