@@ -4,27 +4,24 @@ declare(strict_types=1);
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
 use Chimera\Mapping\Routing\CreateAndFetchEndpoint;
+use Chimera\Mapping\Routing\Endpoint;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 
-/** @coversDefaultClass \Chimera\Mapping\Routing\CreateAndFetchEndpoint */
+#[PHPUnit\CoversClass(CreateAndFetchEndpoint::class)]
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CreateAndFetchEndpointTest extends TestCase
 {
     private const ENDPOINT_DATA = ['path' => '/tests', 'name' => 'test'];
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new CreateAndFetchEndpoint(
-            self::ENDPOINT_DATA + ['command' => 'test1', 'query' => 'test2', 'redirectTo' => 'test3']
+            self::ENDPOINT_DATA + ['command' => 'test1', 'query' => 'test2', 'redirectTo' => 'test3'],
         );
 
         $annotation->validate('class A');
@@ -35,18 +32,9 @@ final class CreateAndFetchEndpointTest extends TestCase
         self::assertSame(['POST'], $annotation->methods);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidScenarios
-     *
-     * @covers ::__construct()
-     * @covers ::validateAdditionalData()
-     * @covers ::defaultMethods()
-     * @covers \Chimera\Mapping\Validator
-     * @covers \Chimera\Mapping\Routing\Endpoint
-     *
-     * @param array{query?: string, command?: string, redirectTo?: string} $values
-     */
+    /** @param array{query?: string, command?: string, redirectTo?: string} $values */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidScenarios')]
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
         $annotation = new CreateAndFetchEndpoint(self::ENDPOINT_DATA + $values);
@@ -58,7 +46,7 @@ final class CreateAndFetchEndpointTest extends TestCase
     }
 
     /** @return iterable<string, array{0: array{query?: string, command?: string, redirectTo?: string}, 1: string}> */
-    public function invalidScenarios(): iterable
+    public static function invalidScenarios(): iterable
     {
         yield 'missing command' => [
             ['query' => 'test', 'redirectTo' => 'test3'],

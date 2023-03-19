@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
+use Chimera\Mapping\Reader;
+use Chimera\Mapping\ServiceBus\Handler;
 use Chimera\Mapping\ServiceBus\QueryHandler;
 use Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 
-/**
- * @covers \Chimera\Mapping\ServiceBus\QueryHandler
- * @covers \Chimera\Mapping\ServiceBus\Handler
- * @covers \Chimera\Mapping\Reader
- * @covers \Chimera\Mapping\Validator
- */
+#[PHPUnit\CoversClass(QueryHandler::class)]
+#[PHPUnit\CoversClass(Handler::class)]
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class QueryHandlerTest extends TestCase
 {
-    /** @test */
+    #[PHPUnit\Test]
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FetchBookHandler::class, QueryHandler::class);
@@ -25,7 +27,7 @@ final class QueryHandlerTest extends TestCase
         self::assertSame('handle', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(FindBooksHandler::class, QueryHandler::class);
@@ -35,7 +37,7 @@ final class QueryHandlerTest extends TestCase
         self::assertSame('handle', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperlyViaMethodsToo(): void
     {
         $annotation = $this->readAnnotation(FindAuthorsHandler::class, QueryHandler::class);
@@ -45,7 +47,7 @@ final class QueryHandlerTest extends TestCase
         self::assertSame('process', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);

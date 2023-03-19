@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Functional\ServiceBus;
 
+use Chimera\Mapping\Reader;
 use Chimera\Mapping\ServiceBus\CommandHandler;
+use Chimera\Mapping\ServiceBus\Handler;
 use Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 
-/**
- * @covers \Chimera\Mapping\ServiceBus\CommandHandler
- * @covers \Chimera\Mapping\ServiceBus\Handler
- * @covers \Chimera\Mapping\Reader
- * @covers \Chimera\Mapping\Validator
- */
+#[PHPUnit\CoversClass(CommandHandler::class)]
+#[PHPUnit\CoversClass(Handler::class)]
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CommandHandlerTest extends TestCase
 {
-    /** @test */
+    #[PHPUnit\Test]
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(CreateAuthorHandler::class, CommandHandler::class);
@@ -25,7 +27,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('handle', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(CreateBookHandler::class, CommandHandler::class);
@@ -35,7 +37,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('handle', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperlyViaMethodsToo(): void
     {
         $annotation = $this->readAnnotation(BorrowBookHandler::class, CommandHandler::class);
@@ -45,7 +47,7 @@ final class CommandHandlerTest extends TestCase
         self::assertSame('process', $annotation->method);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);

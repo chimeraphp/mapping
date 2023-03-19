@@ -10,43 +10,30 @@ use Doctrine\Common\Annotations\Annotation\Enum;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader as ReaderInterface;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-use function get_class;
-
-/** @coversDefaultClass \Chimera\Mapping\Reader */
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\UsesClass(Handler::class)]
 final class ReaderTest extends TestCase
 {
-    /** @var ReaderInterface|MockObject */
-    private $decorated;
+    private ReaderInterface&MockObject $decorated;
 
-    /** @before */
+    #[PHPUnit\Before]
     public function configureDependencies(): void
     {
         $this->decorated = $this->createMock(ReaderInterface::class);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::fromDefault()
-     * @covers ::__construct()
-     */
+    #[PHPUnit\Test]
     public function fromDefaultShouldReturnAReaderDecoratingABasicAnnotationReader(): void
     {
         self::assertEquals(new Reader(new AnnotationReader()), Reader::fromDefault());
     }
 
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotations()
-     * @covers ::findMethodAnnotations()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     */
+    #[PHPUnit\Test]
     public function getClassAnnotationsShouldReturnOnlyValidAndRelevantAnnotations(): void
     {
         $annotation = $this->createMock(Annotation::class);
@@ -68,15 +55,7 @@ final class ReaderTest extends TestCase
         self::assertSame([$annotation, $annotation], $reader->getClassAnnotations($class));
     }
 
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotations()
-     * @covers ::findMethodAnnotations()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     * @uses \Chimera\Mapping\ServiceBus\Handler
-     */
+    #[PHPUnit\Test]
     public function getClassAnnotationsShouldIncludeMethodAnnotations(): void
     {
         $handler = new class {
@@ -90,7 +69,7 @@ final class ReaderTest extends TestCase
 
         $annotation->expects(self::exactly(2))
                    ->method('validate')
-                   ->with('class ' . get_class($handler));
+                   ->with('class ' . $handler::class);
 
         $this->decorated->expects(self::once())
                         ->method('getClassAnnotations')
@@ -106,17 +85,11 @@ final class ReaderTest extends TestCase
 
         self::assertSame(
             [$annotation, $annotation, $handlerAnnotation, $handlerAnnotation],
-            $reader->getClassAnnotations($class)
+            $reader->getClassAnnotations($class),
         );
     }
 
-    /**
-     * @test
-     *
-     * @covers ::getClassAnnotations()
-     *
-     * @uses \Chimera\Mapping\Reader::__construct()
-     */
+    #[PHPUnit\Test]
     public function getClassAnnotationsShouldThrowExceptionForInvalidAnnotations(): void
     {
         $annotation = $this->createMock(Annotation::class);

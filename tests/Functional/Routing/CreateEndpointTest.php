@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Functional\Routing;
 
+use Chimera\Mapping\Reader;
 use Chimera\Mapping\Routing\CreateEndpoint;
+use Chimera\Mapping\Routing\Endpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 
-/**
- * @covers \Chimera\Mapping\Routing\Endpoint
- * @covers \Chimera\Mapping\Routing\CreateEndpoint
- * @covers \Chimera\Mapping\Reader
- * @covers \Chimera\Mapping\Validator
- */
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(CreateEndpoint::class)]
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CreateEndpointTest extends TestCase
 {
-    /** @test */
+    #[PHPUnit\Test]
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(AddBookToCollectionHandler::class, CreateEndpoint::class);
@@ -30,7 +32,7 @@ final class CreateEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RegisterAuthorHandler::class, CreateEndpoint::class);
@@ -45,7 +47,7 @@ final class CreateEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);

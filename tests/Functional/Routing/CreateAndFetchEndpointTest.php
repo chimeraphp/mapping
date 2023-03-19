@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Functional\Routing;
 
+use Chimera\Mapping\Reader;
 use Chimera\Mapping\Routing\CreateAndFetchEndpoint;
+use Chimera\Mapping\Routing\Endpoint;
 use Chimera\Mapping\Tests\Functional\TestCase;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 
-/**
- * @covers \Chimera\Mapping\Routing\Endpoint
- * @covers \Chimera\Mapping\Routing\CreateAndFetchEndpoint
- * @covers \Chimera\Mapping\Reader
- * @covers \Chimera\Mapping\Validator
- */
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(CreateAndFetchEndpoint::class)]
+#[PHPUnit\CoversClass(Reader::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class CreateAndFetchEndpointTest extends TestCase
 {
-    /** @test */
+    #[PHPUnit\Test]
     public function defaultValueShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RegisterCustomerHandler::class, CreateAndFetchEndpoint::class);
@@ -30,7 +32,7 @@ final class CreateAndFetchEndpointTest extends TestCase
         self::assertNull($annotation->app);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function propertiesShouldBeConfiguredProperly(): void
     {
         $annotation = $this->readAnnotation(RegisterLibrarianHandler::class, CreateAndFetchEndpoint::class);
@@ -45,7 +47,7 @@ final class CreateAndFetchEndpointTest extends TestCase
         self::assertSame('my-app', $annotation->app);
     }
 
-    /** @test */
+    #[PHPUnit\Test]
     public function exceptionShouldBeRaisedWhenRequiredPropertiesAreMissing(): void
     {
         $this->expectException(AnnotationException::class);

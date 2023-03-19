@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace Chimera\Mapping\Tests\Unit\Routing;
 
+use Chimera\Mapping\Routing\Endpoint;
+use Chimera\Mapping\Validator;
 use Doctrine\Common\Annotations\AnnotationException;
+use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 
-/** @coversDefaultClass \Chimera\Mapping\Routing\Endpoint */
+#[PHPUnit\CoversClass(Endpoint::class)]
+#[PHPUnit\CoversClass(Validator::class)]
 final class EndpointTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenStateIsValid(): void
     {
         $annotation = new TestAnnotation(
-            ['path' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
+            ['path' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']],
         );
 
         $annotation->validate('class A');
@@ -30,17 +28,11 @@ final class EndpointTest extends TestCase
         self::assertSame(['GET'], $annotation->methods);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     */
+    #[PHPUnit\Test]
     public function validateShouldNotRaiseExceptionsWhenValueAttributeIsUsed(): void
     {
         $annotation = new TestAnnotation(
-            ['value' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
+            ['value' => '/tests', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']],
         );
 
         $annotation->validate('class A');
@@ -51,15 +43,11 @@ final class EndpointTest extends TestCase
         self::assertSame(['GET'], $annotation->methods);
     }
 
-    /**
-     * @test
-     *
-     * @covers ::__construct()
-     */
+    #[PHPUnit\Test]
     public function explicitlySetPathShouldBePickedInsteadOfValue(): void
     {
         $annotation = new TestAnnotation(
-            ['value' => '/tests', 'path' => '/testing', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']]
+            ['value' => '/tests', 'path' => '/testing', 'name' => 'test', 'app' => 'my-app', 'methods' => ['GET']],
         );
 
         self::assertSame('/testing', $annotation->path);
@@ -68,18 +56,12 @@ final class EndpointTest extends TestCase
         self::assertSame(['GET'], $annotation->methods);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidScenarios
-     *
-     * @covers ::__construct()
-     * @covers ::validate()
-     * @covers \Chimera\Mapping\Validator
-     *
-     * @param array{path?: string, value?: string, name?: string, app?: string, methods?: mixed} $values
-     */
+    /** @param array{path?: string, value?: string, name?: string, app?: string, methods?: mixed} $values */
+    #[PHPUnit\Test]
+    #[PHPUnit\DataProvider('invalidScenarios')]
     public function validateShouldRaiseExceptionWhenInvalidDataWasProvided(array $values, string $expectedMessage): void
     {
+        // @phpstan-ignore-next-line
         $annotation = new TestAnnotation($values);
 
         $this->expectException(AnnotationException::class);
@@ -89,7 +71,7 @@ final class EndpointTest extends TestCase
     }
 
     /** @return iterable<string, array{0: array{path?: string, value?: string, name?: string, app?: string, methods?: mixed}, 1: string}> */
-    public function invalidScenarios(): iterable
+    public static function invalidScenarios(): iterable
     {
         yield 'null path' => [
             ['name' => 'test', 'methods' => ['POST']],
